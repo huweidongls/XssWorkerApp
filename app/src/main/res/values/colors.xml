@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorPrimary">#1484FF</color>
+    <color name="colorPrimaryDark">#1484FF</color>
+    <color name="colorAccent">#1484FF</color>
 
     <!--颜色面板-->
     <color name="yellow_ffc822">#ffc822</color>

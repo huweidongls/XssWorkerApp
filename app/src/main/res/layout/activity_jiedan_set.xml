@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/line"
+    tools:context="com.jingna.xssworkerapp.pages.JiedanSetActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="69dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/back_blue"
+                    android:layout_width="13dp"
+                    android:layout_height="21dp" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="6dp"
+                    android:textColor="#3296FA"
+                    android:textSize="17sp"
+                    android:text="返回"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="接单设置"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@color/white_ffffff"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:textColor="#191F25"
+                android:textSize="17sp"
+                android:text="服务时间设定"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="14dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/on"
+                android:layout_width="53dp"
+                android:layout_height="36dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_marginLeft="16dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="72dp">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#191F25"
+                    android:textSize="17sp"
+                    android:text="早"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="33dp"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#3296FA"
+                    android:textSize="17sp"
+                    android:text="08:00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#191F25"
+                    android:textSize="17sp"
+                    android:text="晚"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginRight="33dp"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#3296FA"
+                    android:textSize="17sp"
+                    android:text="17:00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="16dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:textColor="#191F25"
+                android:textSize="14sp"
+                android:text="将此时间设为每天默认接单时间"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/true_blue"
+                android:layout_width="21dp"
+                android:layout_height="21dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/white_ffffff"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingLeft="16dp"
+            android:gravity="center_vertical"
+            android:textColor="#191F25"
+            android:textSize="17sp"
+            android:text="擅长服务"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+        <View
+            android:layout_marginLeft="16dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

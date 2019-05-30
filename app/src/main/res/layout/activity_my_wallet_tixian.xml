@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/line"
+    tools:context="com.jingna.xssworkerapp.pages.MyWalletTixianActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="69dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/back_blue"
+                    android:layout_width="13dp"
+                    android:layout_height="21dp" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="6dp"
+                    android:textColor="#3296FA"
+                    android:textSize="17sp"
+                    android:text="返回"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="提现"
+            style="@style/tv_top_title" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="96dp">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@color/black_333333"
+            android:layout_width="64dp"
+            android:layout_height="64dp" />
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="83dp"
+            android:textSize="17sp"
+            android:textColor="#000000"
+            android:text="中国银行"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="54dp"
+            android:layout_marginLeft="83dp"
+            android:textColor="#929597"
+            android:textSize="14sp"
+            android:text="尾号8043储蓄卡"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/right_gray"
+            android:layout_width="9dp"
+            android:layout_height="14dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="145dp">
+
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:textColor="#5E6266"
+            android:textSize="14sp"
+            android:text="提现金额"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp" />
+
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:layout_marginTop="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:gravity="center"
+                android:layout_marginLeft="16dp"
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:text="￥"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp" />
+
+            <EditText
+                android:inputType="number"
+                android:textColor="@color/black_333333"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="bottom"
+                android:textSize="30sp"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="97dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:layout_marginTop="97dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:gravity="center"
+                android:textColor="#5E6266"
+                android:textSize="14sp"
+                android:text="可提现金额600.00元"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:textColor="#3296FA"
+                android:textSize="14sp"
+                android:text="全部提现"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    
+    <Button
+        android:layout_marginTop="120dp"
+        android:textColor="@color/white_ffffff"
+        android:textSize="17sp"
+        android:text="预计两个工作日到账，确认提现"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_3296fa_3dp"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+</LinearLayout>
