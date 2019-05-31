@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/line"
+    tools:context="com.jingna.xssworkerapp.pages.SetPwdActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="69dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/back_blue"
+                    android:layout_width="13dp"
+                    android:layout_height="21dp" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="6dp"
+                    android:textColor="#3296FA"
+                    android:textSize="17sp"
+                    android:text="返回"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="14dp"
+            android:textColor="#5E6266"
+            android:textSize="17sp"
+            android:text="输入密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:id="@+id/et_pwd1"
+            android:inputType="textPassword"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:textSize="17sp"
+            android:hint="请输入密码"
+            android:background="@null"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/rl_is_show_pwd1"
+            android:layout_alignParentRight="true"
+            android:layout_width="49dp"
+            android:layout_height="49dp">
+
+            <ImageView
+                android:id="@+id/iv_is_show_pwd1"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/bukejian"
+                android:layout_width="21dp"
+                android:layout_height="11dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="#75000000"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="14dp"
+            android:textColor="#5E6266"
+            android:textSize="17sp"
+            android:text="确认密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:layout_weight="1"
+            android:id="@+id/et_pwd"
+            android:inputType="textPassword"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:textSize="17sp"
+            android:hint="请输入确认密码"
+            android:background="@null"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/rl_is_show_pwd"
+            android:layout_alignParentRight="true"
+            android:layout_width="49dp"
+            android:layout_height="49dp">
+
+            <ImageView
+                android:id="@+id/iv_is_show_pwd"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/bukejian"
+                android:layout_width="21dp"
+                android:layout_height="11dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="#75000000"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_margin="10dp"
+        android:textColor="#B9B9B9"
+        android:textSize="12sp"
+        android:text="密码长度8-32位，须包含数字、字母、符号至少2种或以上元素。"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginTop="60dp"
+        android:textColor="@color/white_ffffff"
+        android:textSize="17sp"
+        android:text="确定"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_3296fa_3dp"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+</LinearLayout>

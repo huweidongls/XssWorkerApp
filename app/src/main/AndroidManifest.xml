@@ -55,7 +55,11 @@
         <activity android:name=".pages.MyWalletTixianActivity" />
         <activity android:name=".pages.JiedanSetActivity" />
         <activity android:name=".pages.AboutActivity" />
-        <activity android:name=".pages.LoginActivity"></activity>
+        <activity android:name=".pages.LoginActivity" />
+        <activity android:name=".pages.RegisterActivity" />
+        <activity android:name=".pages.CodeActivity" />
+        <activity android:name=".pages.SetPwdActivity" />
+        <activity android:name=".pages.PersonInformationActivity"></activity>
     </application>
 
 </manifest>

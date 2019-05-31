@@ -13,6 +13,7 @@ import com.jingna.xssworkerapp.pages.AboutActivity;
 import com.jingna.xssworkerapp.pages.JiedanSetActivity;
 import com.jingna.xssworkerapp.pages.LoginActivity;
 import com.jingna.xssworkerapp.pages.MyWalletActivity;
+import com.jingna.xssworkerapp.pages.PersonInformationActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,7 +34,7 @@ public class FragmentMy extends BaseFragment {
         return view;
     }
 
-    @OnClick({R.id.rl_my_wallet, R.id.rl_jiedan_set, R.id.rl_version, R.id.rl_about})
+    @OnClick({R.id.rl_my_wallet, R.id.rl_jiedan_set, R.id.rl_version, R.id.rl_about, R.id.tv_exit})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -51,6 +52,10 @@ public class FragmentMy extends BaseFragment {
                 break;
             case R.id.rl_about:
                 intent.setClass(getContext(), AboutActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_exit:
+                intent.setClass(getContext(), PersonInformationActivity.class);
                 startActivity(intent);
                 break;
         }
