@@ -1,6 +1,7 @@
 package com.jingna.xssworkerapp.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -23,11 +24,16 @@ public class PersonInformationActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back})
+    @OnClick({R.id.rl_back, R.id.ll_real_name})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.ll_real_name:
+                intent.setClass(context, RealNameActivity.class);
+                startActivity(intent);
                 break;
         }
     }
