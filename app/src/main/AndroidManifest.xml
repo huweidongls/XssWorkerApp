@@ -60,7 +60,7 @@
         <activity android:name=".pages.CodeActivity" />
         <activity android:name=".pages.SetPwdActivity" />
         <activity android:name=".pages.PersonInformationActivity" />
-        <activity android:name=".pages.RealNameActivity"/>
+        <activity android:name=".pages.RealNameActivity" />
         <activity
             android:name="com.donkingliang.imageselector.ImageSelectorActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -83,6 +83,17 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="IRFxFIsg3h5W6Pd3q9WAp06g4pCmEv3x" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity android:name=".pages.OrderDetailsActivity"></activity>
     </application>
 
 </manifest>
