@@ -24,7 +24,7 @@ public class PersonInformationActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.ll_real_name})
+    @OnClick({R.id.rl_back, R.id.ll_real_name, R.id.ll_work_experience})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -33,6 +33,10 @@ public class PersonInformationActivity extends BaseActivity {
                 break;
             case R.id.ll_real_name:
                 intent.setClass(context, RealNameActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_work_experience:
+                intent.setClass(context, WorkExperienceActivity.class);
                 startActivity(intent);
                 break;
         }

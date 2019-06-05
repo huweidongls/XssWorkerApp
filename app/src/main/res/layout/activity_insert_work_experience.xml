@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/line"
-    tools:context="com.jingna.xssworkerapp.pages.PersonInformationActivity">
+    tools:context="com.jingna.xssworkerapp.pages.InsertWorkExperienceActivity">
 
     <RelativeLayout
         style="@style/rl_top_bar">
@@ -42,8 +42,24 @@
         </RelativeLayout>
 
         <TextView
-            android:text="个人资料"
+            android:text="添加工作经历"
             style="@style/tv_top_title" />
+
+        <RelativeLayout
+            android:id="@+id/rl_save"
+            android:layout_alignParentRight="true"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="#3296FA"
+                android:textSize="17sp"
+                android:text="保存"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -57,60 +73,31 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="30dp"
-                android:textColor="@color/black_333333"
-                android:textSize="17sp"
-                android:text="工作照"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:src="#D8D8D8"
-                android:layout_width="67dp"
-                android:layout_height="67dp" />
-
-        </LinearLayout>
-        
-        <View
-            android:layout_marginLeft="15dp"
-            android:background="@color/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-        
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
             android:layout_height="48dp">
 
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="身份认证"
+                android:text="单位/机构"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <EditText
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
+                android:background="@null"
+                android:hint="请填写"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="张XX"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <View
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="16dp"
             android:background="@color/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
@@ -121,30 +108,23 @@
             android:layout_height="48dp">
 
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="绑定手机"
+                android:text="          岗位"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:layout_weight="1"
+            <EditText
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
+                android:background="@null"
+                android:hint="请填写"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="180****9087"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_marginRight="16dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/edit_gray"
-                android:layout_width="19dp"
-                android:layout_height="19dp" />
 
         </LinearLayout>
 
@@ -158,41 +138,112 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/ll_real_name"
+            android:id="@+id/ll_start_time"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="证件照片"
+                android:text="入职时间"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_weight="1"
+                android:id="@+id/tv_start_time"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
-                android:textColor="#B9B9B9"
+                android:hint="请填写"
+                android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="未上传"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_marginRight="16dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/camera_gray"
-                android:layout_width="19dp"
-                android:layout_height="15dp" />
 
         </LinearLayout>
 
         <View
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_end_time"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black_333333"
+                android:textSize="17sp"
+                android:text="离职时间"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:hint="请填写"
+                android:textColor="@color/black_333333"
+                android:textSize="17sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:background="@color/white_ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_pic"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black_333333"
+                android:textSize="17sp"
+                android:text="上传证件"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_pic"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:hint="请添加"
+                android:textColor="@color/black_333333"
+                android:textSize="17sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:src="@mipmap/camera_gray"
+                android:layout_width="18dp"
+                android:layout_height="14dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="16dp"
             android:background="@color/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
@@ -203,70 +254,61 @@
             android:layout_height="48dp">
 
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="证件号码"
+                android:text="         月薪"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <EditText
+                android:inputType="number"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
-                android:textColor="#B9B9B9"
+                android:background="@null"
+                android:hint="请填写"
+                android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="请输入证件号码"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="16dp"
-        android:textColor="#B9B9B9"
-        android:textSize="12sp"
-        android:text="个人隐私信息安全隐藏"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <LinearLayout
-        android:id="@+id/ll_work_experience"
+        android:layout_marginTop="20dp"
         android:background="@color/white_ffffff"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"
-            android:textColor="@color/black_333333"
-            android:textSize="17sp"
-            android:text="工作经历"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
 
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"
-            android:textColor="#B9B9B9"
-            android:textSize="17sp"
-            android:text="未填写"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black_333333"
+                android:textSize="17sp"
+                android:text="内容描述"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <ImageView
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/right_gray"
-            android:layout_width="11dp"
-            android:layout_height="22dp" />
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:background="@null"
+                android:hint="请填写"
+                android:textColor="@color/black_333333"
+                android:textSize="17sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
