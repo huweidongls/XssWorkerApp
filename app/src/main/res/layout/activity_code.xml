@@ -110,6 +110,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/et_code"
             android:inputType="number"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"

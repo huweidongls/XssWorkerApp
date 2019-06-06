@@ -1,6 +1,7 @@
 package com.jingna.xssworkerapp.fragment;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +12,15 @@ import android.view.ViewGroup;
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.adapter.FragmentNewOrderAdapter;
 import com.jingna.xssworkerapp.base.BaseFragment;
+import com.jingna.xssworkerapp.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2019/5/29.
@@ -55,6 +59,15 @@ public class FragmentNewOrder extends BaseFragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
+    }
+
+    @OnClick(R.id.rl_tingdan)
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.rl_tingdan:
+
+                break;
+        }
     }
 
 }

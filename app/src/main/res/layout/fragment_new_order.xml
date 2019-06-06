@@ -14,6 +14,7 @@
         android:layout_height="50dp">
 
         <RelativeLayout
+            android:id="@+id/rl_tingdan"
             android:elevation="2dp"
             android:background="@drawable/bg_ffffff_5dp"
             android:layout_width="80dp"

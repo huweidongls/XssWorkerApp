@@ -1,5 +1,6 @@
 package com.jingna.xssworkerapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import com.jingna.xssworkerapp.fragment.FragmentIndex;
 import com.jingna.xssworkerapp.fragment.FragmentMessage;
 import com.jingna.xssworkerapp.fragment.FragmentMy;
 import com.jingna.xssworkerapp.util.ToastUtil;
+import com.vise.xsnow.permission.OnPermissionCallback;
+import com.vise.xsnow.permission.PermissionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +63,26 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        PermissionManager.instance().request(this, new OnPermissionCallback() {
+                    @Override
+                    public void onRequestAllow(String permissionName) {
+//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
+//                        getString(R.string.permission_allow) + "\n" + permissionName);
+                    }
+
+                    @Override
+                    public void onRequestRefuse(String permissionName) {
+//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
+//                        getString(R.string.permission_refuse) + "\n" + permissionName);
+                    }
+
+                    @Override
+                    public void onRequestNoAsk(String permissionName) {
+//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
+//                        getString(R.string.permission_noAsk) + "\n" + permissionName);
+                    }
+                }, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE);
         ButterKnife.bind(MainActivity.this);
         init();
 

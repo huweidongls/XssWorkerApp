@@ -6,4 +6,12 @@ package com.jingna.xssworkerapp.net;
 
 public class NetUrl {
     public static final String BASE_URL = "http://xss.5ijiaoyu.cn/";
+    //登录
+    public static String loginUrl = "index.php/WorkApi/Logins/login";
+    //发送验证码
+    public static String codeSendUrl = "index.php/WorkApi/Logins/CodeSend";
+    //用户注册接口
+    public static String registerUrl = "index.php/WorkApi/Logins/register";
+    //找回密码
+    public static String retrievePasswordUrl = "index.php/WorkApi/Logins/RetrievePassword";
 }

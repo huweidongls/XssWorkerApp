@@ -42,6 +42,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_title"
             android:text="手机号注册"
             style="@style/tv_top_title" />
 

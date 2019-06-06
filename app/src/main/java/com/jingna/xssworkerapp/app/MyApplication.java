@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.jingna.xssworkerapp.net.NetUrl;
 import com.vise.xsnow.http.ViseHttp;
 
 import java.util.LinkedList;
@@ -32,7 +33,7 @@ public class MyApplication extends Application {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
         ViseHttp.init(this);
-        ViseHttp.CONFIG().baseUrl("");
+        ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL);
     }
 
     public synchronized static MyApplication getInstance() {
