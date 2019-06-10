@@ -14,4 +14,6 @@ public class NetUrl {
     public static String registerUrl = "index.php/WorkApi/Logins/register";
     //找回密码
     public static String retrievePasswordUrl = "index.php/WorkApi/Logins/RetrievePassword";
+    //个人中心主页信息
+    public static String userInfoUrl = "index.php/WorkApi/User/UserInfo";
 }

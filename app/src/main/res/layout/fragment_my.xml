@@ -80,6 +80,7 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:id="@+id/tv_all_num"
                                         android:layout_gravity="center_horizontal"
                                         android:layout_marginTop="1dp"
                                         android:textColor="#5E6266"
@@ -91,6 +92,12 @@
                                 </LinearLayout>
 
                             </RelativeLayout>
+
+                            <View
+                                android:layout_gravity="center_vertical"
+                                android:background="#EBEBEC"
+                                android:layout_width="1dp"
+                                android:layout_height="30dp"/>
 
                             <RelativeLayout
                                 android:layout_weight="1"
@@ -112,6 +119,7 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:id="@+id/tv_complete_num"
                                         android:layout_gravity="center_horizontal"
                                         android:layout_marginTop="1dp"
                                         android:textColor="#5E6266"
@@ -123,6 +131,12 @@
                                 </LinearLayout>
 
                             </RelativeLayout>
+
+                            <View
+                                android:layout_gravity="center_vertical"
+                                android:background="#EBEBEC"
+                                android:layout_width="1dp"
+                                android:layout_height="30dp"/>
 
                             <RelativeLayout
                                 android:layout_weight="1"
@@ -144,6 +158,7 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:id="@+id/tv_new_num"
                                         android:layout_gravity="center_horizontal"
                                         android:layout_marginTop="1dp"
                                         android:textColor="#5E6266"
@@ -155,6 +170,12 @@
                                 </LinearLayout>
 
                             </RelativeLayout>
+
+                            <View
+                                android:layout_gravity="center_vertical"
+                                android:background="#EBEBEC"
+                                android:layout_width="1dp"
+                                android:layout_height="30dp"/>
 
                             <RelativeLayout
                                 android:layout_weight="2"
@@ -176,6 +197,7 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:id="@+id/tv_price"
                                         android:layout_gravity="center_horizontal"
                                         android:layout_marginTop="1dp"
                                         android:textColor="#1484FF"
@@ -197,6 +219,43 @@
                         android:src="@mipmap/avatar"
                         android:layout_width="114dp"
                         android:layout_height="114dp" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginLeft="26dp"
+                        android:layout_width="102dp"
+                        android:layout_height="102dp" />
+
+                    <LinearLayout
+                        android:layout_marginTop="56dp"
+                        android:layout_marginLeft="141dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:id="@+id/tv_name"
+                            android:textSize="18sp"
+                            android:textColor="#000000"
+                            android:text="李师傅"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_is_real"
+                            android:background="@drawable/bg_66191f25_2dp"
+                            android:gravity="center"
+                            android:textSize="10sp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#66191F25"
+                            android:text="未实名认证"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp" />
+
+                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -256,6 +315,7 @@
                     android:layout_height="1dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_person_information"
                     android:background="@drawable/selector_fragment_my_bg"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">

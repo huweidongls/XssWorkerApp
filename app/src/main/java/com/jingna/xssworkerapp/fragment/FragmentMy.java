@@ -6,15 +6,28 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.base.BaseFragment;
+import com.jingna.xssworkerapp.bean.UserInfoBean;
+import com.jingna.xssworkerapp.net.NetUrl;
 import com.jingna.xssworkerapp.pages.AboutActivity;
 import com.jingna.xssworkerapp.pages.JiedanSetActivity;
 import com.jingna.xssworkerapp.pages.LoginActivity;
 import com.jingna.xssworkerapp.pages.MyWalletActivity;
 import com.jingna.xssworkerapp.pages.PersonInformationActivity;
+import com.jingna.xssworkerapp.util.SpUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -23,6 +36,21 @@ import butterknife.OnClick;
  */
 
 public class FragmentMy extends BaseFragment {
+
+    @BindView(R.id.iv_avatar)
+    ImageView ivAvatar;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_is_real)
+    TextView tvIsReal;
+    @BindView(R.id.tv_all_num)
+    TextView tvAllNum;
+    @BindView(R.id.tv_complete_num)
+    TextView tvCompleteNum;
+    @BindView(R.id.tv_new_num)
+    TextView tvNewNum;
+    @BindView(R.id.tv_price)
+    TextView tvPrice;
 
     @Nullable
     @Override
@@ -34,7 +62,47 @@ public class FragmentMy extends BaseFragment {
         return view;
     }
 
-    @OnClick({R.id.rl_my_wallet, R.id.rl_jiedan_set, R.id.rl_version, R.id.rl_about, R.id.tv_exit})
+    @Override
+    public void onStart() {
+        super.onStart();
+        ViseHttp.POST(NetUrl.userInfoUrl)
+                .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.userInfoUrl))
+                .addParam("uid", SpUtils.getUid(getContext()))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optInt("code") == 200){
+                                Gson gson = new Gson();
+                                UserInfoBean bean = gson.fromJson(data, UserInfoBean.class);
+                                Glide.with(getContext()).load(NetUrl.BASE_URL+bean.getObj().getHeadimg()).into(ivAvatar);
+                                tvName.setText(bean.getObj().getName());
+                                if(bean.getObj().getReal().equals("0")){
+                                    tvIsReal.setText("未实名认证");
+                                    tvIsReal.setBackgroundResource(R.drawable.bg_66191f25_2dp);
+                                }else if(bean.getObj().getReal().equals("1")){
+                                    tvIsReal.setText("已实名认证");
+                                    tvIsReal.setBackgroundResource(R.drawable.bg_3296fa_2dp);
+                                }
+                                tvAllNum.setText(bean.getObj().getOrder_count()+"单");
+                                tvCompleteNum.setText(bean.getObj().getTheorder()+"单");
+                                tvNewNum.setText(bean.getObj().getOrder_task()+"单");
+                                tvPrice.setText(bean.getObj().getPrice()+"元");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+    }
+
+    @OnClick({R.id.rl_my_wallet, R.id.rl_jiedan_set, R.id.rl_version, R.id.rl_about, R.id.tv_exit, R.id.rl_person_information})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -55,6 +123,9 @@ public class FragmentMy extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_exit:
+
+                break;
+            case R.id.rl_person_information:
                 intent.setClass(getContext(), PersonInformationActivity.class);
                 startActivity(intent);
                 break;
