@@ -6,13 +6,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.gson.Gson;
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.base.BaseActivity;
+import com.jingna.xssworkerapp.bean.WorkExperienceInfoBean;
+import com.jingna.xssworkerapp.net.NetUrl;
+import com.jingna.xssworkerapp.util.SpUtils;
+import com.jingna.xssworkerapp.util.StringUtils;
+import com.jingna.xssworkerapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,6 +43,14 @@ public class InsertWorkExperienceActivity extends BaseActivity {
     TextView tvEndTime;
     @BindView(R.id.tv_pic)
     TextView tvPic;
+    @BindView(R.id.et_company)
+    EditText etCompany;
+    @BindView(R.id.et_jobs)
+    EditText etJobs;
+    @BindView(R.id.et_price)
+    EditText etPrice;
+    @BindView(R.id.et_content)
+    EditText etContent;
 
     private int mYear;
     private int mMonth;
@@ -38,16 +58,55 @@ public class InsertWorkExperienceActivity extends BaseActivity {
 
     private int REQUEST_CODE = 101;
 
+    private String id = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_work_experience);
 
+        id = getIntent().getStringExtra("id");
         Calendar ca = Calendar.getInstance();
         mYear = ca.get(Calendar.YEAR);
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
         ButterKnife.bind(InsertWorkExperienceActivity.this);
+        initData();
+
+    }
+
+    private void initData() {
+
+        if(!StringUtils.isEmpty(id)){
+            ViseHttp.POST(NetUrl.workExperienceInfoUrl)
+                    .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.workExperienceInfoUrl))
+                    .addParam("id", id)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if(jsonObject.optInt("code") == 200){
+                                    Gson gson = new Gson();
+                                    WorkExperienceInfoBean infoBean = gson.fromJson(data, WorkExperienceInfoBean.class);
+                                    etCompany.setText(infoBean.getObj().getCompanyname());
+                                    etJobs.setText(infoBean.getObj().getPosition());
+                                    tvStartTime.setText(infoBean.getObj().getStart_time());
+                                    tvEndTime.setText(infoBean.getObj().getEnd_time());
+                                    etPrice.setText(infoBean.getObj().getSalary());
+                                    etContent.setText(infoBean.getObj().getJobdescription());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
 
     }
 
@@ -58,7 +117,80 @@ public class InsertWorkExperienceActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rl_save:
+                String company = etCompany.getText().toString();
+                String jobs = etJobs.getText().toString();
+                String startTime = tvStartTime.getText().toString();
+                String endTime = tvEndTime.getText().toString();
+                String price = etPrice.getText().toString();
+                final String content = etContent.getText().toString();
+                if(StringUtils.isEmpty(company)||StringUtils.isEmpty(jobs)||StringUtils.isEmpty(startTime)
+                        ||StringUtils.isEmpty(endTime)||StringUtils.isEmpty(price)||StringUtils.isEmpty(content)){
+                    ToastUtil.showShort(context, "请完善信息后提交");
+                }else {
+                    if(StringUtils.isEmpty(id)){
+                        ViseHttp.POST(NetUrl.workExperienceAddUrl)
+                                .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.workExperienceAddUrl))
+                                .addParam("uid", SpUtils.getUid(context))
+                                .addParam("companyname", company)
+                                .addParam("start_time", startTime)
+                                .addParam("end_time", endTime)
+                                .addParam("position", jobs)
+                                .addParam("salary", price)
+                                .addParam("jobdescription", content)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.optInt("code") == 200){
+                                                ToastUtil.showShort(context, jsonObject.optString("message"));
+                                                finish();
+                                            }else {
+                                                ToastUtil.showShort(context, jsonObject.optString("message"));
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
 
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }else {
+                        ViseHttp.POST(NetUrl.workExperienceSaveUrl)
+                                .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.workExperienceSaveUrl))
+                                .addParam("id", id)
+                                .addParam("companyname", company)
+                                .addParam("start_time", startTime)
+                                .addParam("end_time", endTime)
+                                .addParam("position", jobs)
+                                .addParam("salary", price)
+                                .addParam("jobdescription", content)
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if(jsonObject.optInt("code") == 200){
+                                                ToastUtil.showShort(context, jsonObject.optString("message"));
+                                                finish();
+                                            }else {
+                                                ToastUtil.showShort(context, jsonObject.optString("message"));
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                }
                 break;
             case R.id.ll_start_time:
                 new DatePickerDialog(context, onDateSetListener, mYear, mMonth, mDay).show();
@@ -101,20 +233,20 @@ public class InsertWorkExperienceActivity extends BaseActivity {
             final String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
+                    days = new StringBuffer().append(mYear).append("/").append("0").
+                            append(mMonth + 1).append("/").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append(mDay).append("").toString();
+                    days = new StringBuffer().append(mYear).append("/").append("0").
+                            append(mMonth + 1).append("/").append(mDay).append("").toString();
                 }
 
             } else {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
+                    days = new StringBuffer().append(mYear).append("/").
+                            append(mMonth + 1).append("/").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append(mDay).append("").toString();
+                    days = new StringBuffer().append(mYear).append("/").
+                            append(mMonth + 1).append("/").append(mDay).append("").toString();
                 }
 
             }
@@ -132,20 +264,20 @@ public class InsertWorkExperienceActivity extends BaseActivity {
             final String days;
             if (mMonth + 1 < 10) {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
+                    days = new StringBuffer().append(mYear).append("/").append("0").
+                            append(mMonth + 1).append("/").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append(mDay).append("").toString();
+                    days = new StringBuffer().append(mYear).append("/").append("0").
+                            append(mMonth + 1).append("/").append(mDay).append("").toString();
                 }
 
             } else {
                 if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
+                    days = new StringBuffer().append(mYear).append("/").
+                            append(mMonth + 1).append("/").append("0").append(mDay).append("").toString();
                 } else {
-                    days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append(mDay).append("").toString();
+                    days = new StringBuffer().append(mYear).append("/").
+                            append(mMonth + 1).append("/").append(mDay).append("").toString();
                 }
 
             }

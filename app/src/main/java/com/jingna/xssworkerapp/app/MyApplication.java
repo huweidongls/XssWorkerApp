@@ -6,6 +6,7 @@ import android.app.Application;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.jingna.xssworkerapp.net.NetUrl;
+import com.jingna.xssworkerapp.util.EditPwdTimeCount;
 import com.vise.xsnow.http.ViseHttp;
 
 import java.util.LinkedList;
@@ -20,6 +21,7 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     private List<Activity> mList = new LinkedList<Activity>();
     // 修改密码获取验证码倒计时
+    public static EditPwdTimeCount editPwdTimeCount;
 
     public MyApplication() {
     }
@@ -34,6 +36,7 @@ public class MyApplication extends Application {
         SDKInitializer.setCoordType(CoordType.BD09LL);
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL);
+        editPwdTimeCount = new EditPwdTimeCount(60000, 1000);
     }
 
     public synchronized static MyApplication getInstance() {

@@ -55,6 +55,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/ll_pic"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -69,6 +70,7 @@
                 android:layout_height="wrap_content" />
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_avatar"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
@@ -85,6 +87,7 @@
             android:layout_height="1dp"/>
         
         <LinearLayout
+            android:id="@+id/ll_real_name"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="48dp">
@@ -99,13 +102,24 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="张XX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_is_real"
+                android:background="@drawable/bg_66191f25_2dp"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:textColor="#66191F25"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
 
         </LinearLayout>
 
@@ -116,6 +130,7 @@
             android:layout_height="1dp"/>
 
         <LinearLayout
+            android:id="@+id/ll_replace_phone_num"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="48dp">
@@ -130,12 +145,12 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_phone_num"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="180****9087"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
 
@@ -150,79 +165,79 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:background="@color/white_ffffff"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<LinearLayout-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:background="@color/white_ffffff"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <LinearLayout
-            android:id="@+id/ll_real_name"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_real_name"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="48dp">-->
 
-            <TextView
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:textColor="@color/black_333333"
-                android:textSize="17sp"
-                android:text="证件照片"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--<TextView-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:textColor="@color/black_333333"-->
+                <!--android:textSize="17sp"-->
+                <!--android:text="证件照片"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
 
-            <TextView
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:textColor="#B9B9B9"
-                android:textSize="17sp"
-                android:text="未上传"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+            <!--<TextView-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:textColor="#B9B9B9"-->
+                <!--android:textSize="17sp"-->
+                <!--android:text="未上传"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content" />-->
 
-            <ImageView
-                android:layout_marginRight="16dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/camera_gray"
-                android:layout_width="19dp"
-                android:layout_height="15dp" />
+            <!--<ImageView-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:src="@mipmap/camera_gray"-->
+                <!--android:layout_width="19dp"-->
+                <!--android:layout_height="15dp" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <View
-            android:layout_marginLeft="15dp"
-            android:background="@color/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+        <!--<View-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:background="@color/line"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"/>-->
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="48dp">-->
 
-            <TextView
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:textColor="@color/black_333333"
-                android:textSize="17sp"
-                android:text="证件号码"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--<TextView-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:textColor="@color/black_333333"-->
+                <!--android:textSize="17sp"-->
+                <!--android:text="证件号码"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
 
-            <TextView
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:textColor="#B9B9B9"
-                android:textSize="17sp"
-                android:text="请输入证件号码"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--<TextView-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:textColor="#B9B9B9"-->
+                <!--android:textSize="17sp"-->
+                <!--android:text="请输入证件号码"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <TextView
         android:layout_marginTop="5dp"
@@ -251,11 +266,11 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_work_experience"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
             android:textColor="#B9B9B9"
             android:textSize="17sp"
-            android:text="未填写"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
@@ -269,5 +284,32 @@
             android:layout_height="22dp" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_peixun_experience"
+        android:background="@color/white_ffffff"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/black_333333"
+            android:textSize="17sp"
+            android:text="培训经历"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/right_gray"
+            android:layout_width="11dp"
+            android:layout_height="22dp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

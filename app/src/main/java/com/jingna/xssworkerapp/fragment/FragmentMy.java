@@ -1,6 +1,7 @@
 package com.jingna.xssworkerapp.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -81,9 +82,19 @@ public class FragmentMy extends BaseFragment {
                                 if(bean.getObj().getReal().equals("0")){
                                     tvIsReal.setText("未实名认证");
                                     tvIsReal.setBackgroundResource(R.drawable.bg_66191f25_2dp);
+                                    tvIsReal.setTextColor(Color.parseColor("#66191f25"));
                                 }else if(bean.getObj().getReal().equals("1")){
+                                    tvIsReal.setText("等待认证");
+                                    tvIsReal.setBackgroundResource(R.drawable.bg_66191f25_2dp);
+                                    tvIsReal.setTextColor(Color.parseColor("#66191f25"));
+                                }else if(bean.getObj().getReal().equals("2")){
                                     tvIsReal.setText("已实名认证");
                                     tvIsReal.setBackgroundResource(R.drawable.bg_3296fa_2dp);
+                                    tvIsReal.setTextColor(Color.parseColor("#3296fa"));
+                                }else if(bean.getObj().getReal().equals("3")){
+                                    tvIsReal.setText("认证失败");
+                                    tvIsReal.setBackgroundResource(R.drawable.bg_3296fa_2dp);
+                                    tvIsReal.setTextColor(Color.parseColor("#3296fa"));
                                 }
                                 tvAllNum.setText(bean.getObj().getOrder_count()+"单");
                                 tvCompleteNum.setText(bean.getObj().getTheorder()+"单");

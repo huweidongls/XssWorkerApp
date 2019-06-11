@@ -55,7 +55,7 @@
                 android:layout_centerInParent="true"
                 android:textColor="#3296FA"
                 android:textSize="17sp"
-                android:text="保存"
+                android:text="提交"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -85,6 +85,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_company"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
                 android:background="@null"
@@ -117,6 +118,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_jobs"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
                 android:background="@null"
@@ -207,6 +209,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_pic"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -263,6 +266,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_price"
                 android:inputType="number"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
@@ -299,6 +303,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
                 android:background="@null"
@@ -311,5 +316,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:textColor="#B9B9B9"
+        android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="16dp"
+        android:text="为保护个人隐私，请不要填写手机号码等联系方式。"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

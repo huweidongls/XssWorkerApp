@@ -46,6 +46,7 @@
             style="@style/tv_top_title" />
 
         <RelativeLayout
+            android:id="@+id/rl_save"
             android:layout_alignParentRight="true"
             android:layout_width="50dp"
             android:layout_height="match_parent">
@@ -54,7 +55,7 @@
                 android:layout_centerInParent="true"
                 android:textColor="#3296FA"
                 android:textSize="17sp"
-                android:text="保存"
+                android:text="提交"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -142,6 +143,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_name"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
@@ -176,6 +178,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_id_card"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
@@ -213,6 +216,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_issuing_authority"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
@@ -247,6 +251,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_youxiao"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
