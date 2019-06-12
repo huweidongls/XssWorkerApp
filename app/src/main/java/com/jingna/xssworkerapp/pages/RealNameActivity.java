@@ -109,7 +109,7 @@ public class RealNameActivity extends BaseActivity {
                             .addParam("real_name", name)
                             .addParam("card_code", idCard)
                             .addParam("issue", issuingAuthority)
-                            .addParam("issue", youxiao)
+                            .addParam("validity", youxiao)
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {
