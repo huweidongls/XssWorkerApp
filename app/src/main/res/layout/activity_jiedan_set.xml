@@ -45,6 +45,22 @@
             android:text="接单设置"
             style="@style/tv_top_title" />
 
+        <RelativeLayout
+            android:id="@+id/rl_save"
+            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="#3296FA"
+                android:textSize="17sp"
+                android:text="保存"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -55,6 +71,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/rl_set"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
@@ -68,6 +85,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:id="@+id/iv_set"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="14dp"
                 android:layout_alignParentRight="true"
@@ -84,6 +102,7 @@
             android:layout_height="1dp"/>
 
         <LinearLayout
+            android:id="@+id/ll_time"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="72dp">
@@ -147,6 +166,7 @@
             android:layout_height="1dp"/>
 
         <RelativeLayout
+            android:id="@+id/rl_default"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
@@ -160,6 +180,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:id="@+id/iv_default"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
                 android:layout_alignParentRight="true"

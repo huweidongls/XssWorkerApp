@@ -32,4 +32,9 @@
     <color name="red_F71F1F">#F71F1F</color>
     <color name="gray_909090">#909090</color>
     <color name="line">#F6F6F6</color>
+
+    <color name="background">#FFFFFF</color>
+    <color name="split_line">#11112233</color>
+    <color name="text1">#f83030</color>
+    <color name="text2">#333333</color>
 </resources>

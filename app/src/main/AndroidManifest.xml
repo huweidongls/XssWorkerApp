@@ -96,7 +96,8 @@
         <activity android:name=".pages.OrderDetailsActivity" />
         <activity android:name=".pages.WorkExperienceActivity" />
         <activity android:name=".pages.InsertWorkExperienceActivity" />
-        <activity android:name=".pages.ReplacePhoneNumActivity"></activity>
+        <activity android:name=".pages.ReplacePhoneNumActivity" />
+        <activity android:name=".pages.JiedanTimeSetActivity"></activity>
     </application>
 
 </manifest>
