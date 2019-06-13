@@ -12,6 +12,8 @@ import com.vise.xsnow.http.ViseHttp;
 import java.util.LinkedList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by Administrator on 2019/2/13.
  */
@@ -36,6 +38,8 @@ public class MyApplication extends Application {
         SDKInitializer.setCoordType(CoordType.BD09LL);
         ViseHttp.init(this);
         ViseHttp.CONFIG().baseUrl(NetUrl.BASE_URL);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         editPwdTimeCount = new EditPwdTimeCount(60000, 1000);
     }
 

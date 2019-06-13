@@ -58,6 +58,15 @@ public class PersonalDataBean {
         private String workexperience;
         private String workertrain;
         private String username;
+        private String habitualresidence;
+
+        public String getHabitualresidence() {
+            return habitualresidence;
+        }
+
+        public void setHabitualresidence(String habitualresidence) {
+            this.habitualresidence = habitualresidence;
+        }
 
         public String getId() {
             return id;

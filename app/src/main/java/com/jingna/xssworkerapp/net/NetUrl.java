@@ -34,4 +34,18 @@ public class NetUrl {
     public static String workExperienceSaveUrl = "index.php/WorkApi/User/workExperienceSave";
     //删除工作经历
     public static String delete_WorkExperienceUrl = "index.php/WorkApi/User/delete_WorkExperience";
+    //接单设置(回显)
+    public static String orderAcceptanceSettingsUrl = "index.php/WorkApi/User/OrderAcceptanceSettings";
+    //接单设置(保存)
+    public static String orderAcceptanceSettingsSaveUrl = "index.php/WorkApi/User/OrderAcceptanceSettingsSave";
+    //选择擅长服务分类列表
+    public static String workerTypeListUrl = "index.php/WorkApi/User/WorkerTypeList";
+    //保存擅长服务
+    public static String saveWorkerTypeListUrl = "index.php/WorkApi/User/SaveWorkerTypeList";
+    //定位接口
+    public static String locationUrl = "index.php/api/Index/Home/Location";
+    //已开通城市列表
+    public static String openCityListUrl = "index.php/api/Index/Home/OpenCityList";
+    //保存长据地
+    public static String habitualresidenceUrl = "index.php/WorkApi/User/habitualresidence";
 }

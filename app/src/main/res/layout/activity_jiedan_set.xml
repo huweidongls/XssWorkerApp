@@ -122,6 +122,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_zao"
                     android:layout_alignParentBottom="true"
                     android:layout_marginRight="33dp"
                     android:layout_alignParentRight="true"
@@ -147,6 +148,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_wan"
                     android:layout_marginRight="33dp"
                     android:layout_alignParentRight="true"
                     android:textColor="#3296FA"
@@ -213,6 +215,12 @@
             android:background="@color/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginBottom="10dp"
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

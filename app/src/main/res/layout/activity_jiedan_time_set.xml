@@ -82,8 +82,8 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:id="@+id/tv_zao"
-                    android:layout_alignParentBottom="true"
                     android:textColor="#3296FA"
                     android:textSize="17sp"
                     android:text="早"
@@ -91,10 +91,10 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/tv_zao"
                     android:id="@+id/tv_start_time"
-                    android:layout_alignParentBottom="true"
                     android:textColor="#3296FA"
                     android:textSize="17sp"
                     android:text="08:00"
@@ -117,6 +117,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:id="@+id/tv_wan"
                     android:textColor="#3296FA"
                     android:textSize="17sp"
@@ -125,6 +126,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/tv_wan"
                     android:id="@+id/tv_end_time"
@@ -153,13 +155,13 @@
 
             <com.jingna.xssworkerapp.widget.DatePickerView
                 android:id="@+id/hour"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent" />
 
             <com.jingna.xssworkerapp.widget.DatePickerView
                 android:id="@+id/minute"
-                android:layout_marginLeft="20dp"
-                android:layout_width="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent" />
 
         </LinearLayout>

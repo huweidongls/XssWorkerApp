@@ -1,13 +1,16 @@
 package com.jingna.xssworkerapp;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,31 +61,21 @@ public class MainActivity extends BaseActivity {
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+    public static boolean isForeground = false;
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+    private EditText msgText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PermissionManager.instance().request(this, new OnPermissionCallback() {
-                    @Override
-                    public void onRequestAllow(String permissionName) {
-//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
-//                        getString(R.string.permission_allow) + "\n" + permissionName);
-                    }
-
-                    @Override
-                    public void onRequestRefuse(String permissionName) {
-//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
-//                        getString(R.string.permission_refuse) + "\n" + permissionName);
-                    }
-
-                    @Override
-                    public void onRequestNoAsk(String permissionName) {
-//                DialogUtil.showTips(mContext, getString(R.string.permission_control),
-//                        getString(R.string.permission_noAsk) + "\n" + permissionName);
-                    }
-                }, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE);
         ButterKnife.bind(MainActivity.this);
         init();
 
@@ -213,6 +206,33 @@ public class MainActivity extends BaseActivity {
         } else {
             MyApplication.getInstance().exit();
             exitTime = 0;
+        }
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                    String messge = intent.getStringExtra(KEY_MESSAGE);
+                    String extras = intent.getStringExtra(KEY_EXTRAS);
+                    StringBuilder showMsg = new StringBuilder();
+                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                    if (!TextUtils.isEmpty(extras)) {
+                        showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                    }
+                    setCostomMsg(showMsg.toString());
+                }
+            } catch (Exception e){
+            }
+        }
+    }
+
+    private void setCostomMsg(String msg){
+        if (null != msgText) {
+            msgText.setText(msg);
+            msgText.setVisibility(android.view.View.VISIBLE);
         }
     }
 

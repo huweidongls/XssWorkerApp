@@ -1,5 +1,6 @@
 package com.jingna.xssworkerapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
@@ -8,10 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.adapter.FragmentNewOrderAdapter;
 import com.jingna.xssworkerapp.base.BaseFragment;
+import com.jingna.xssworkerapp.pages.CityActivity;
+import com.jingna.xssworkerapp.util.SpUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -30,6 +34,8 @@ public class FragmentNewOrder extends BaseFragment {
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_city)
+    TextView tvCity;
 
     private FragmentNewOrderAdapter adapter;
     private List<String> mList;
@@ -47,6 +53,9 @@ public class FragmentNewOrder extends BaseFragment {
 
     private void initData() {
 
+        String[] s = SpUtils.getCityName(getContext()).split("-");
+        tvCity.setText(s[1]);
+
         mList = new ArrayList<>();
         mList.add("");
         mList.add("");
@@ -61,11 +70,19 @@ public class FragmentNewOrder extends BaseFragment {
 
     }
 
-    @OnClick(R.id.rl_tingdan)
+    @OnClick({R.id.rl_tingdan, R.id.rl_city})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_tingdan:
 
+                break;
+            case R.id.rl_city:
+                String[] s = SpUtils.getCityName(getContext()).split("-");
+                intent.setClass(getContext(), CityActivity.class);
+                intent.putExtra("city", s[1]);
+                intent.putExtra("type", 1);
+                startActivity(intent);
                 break;
         }
     }
