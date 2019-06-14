@@ -151,7 +151,11 @@ public class WelcomeActivity extends BaseActivity {
                                                             LocationBean bean = gson1.fromJson(data, LocationBean.class);
                                                             Logger.e("2222", bean.getObj().getId());
                                                             Intent intent = new Intent();
-                                                            intent.setClass(context, MainActivity.class);
+                                                            if(SpUtils.getUid(context).equals("0")){
+                                                                intent.setClass(context, LoginActivity.class);
+                                                            }else {
+                                                                intent.setClass(context, MainActivity.class);
+                                                            }
                                                             SpUtils.setCityId(context, bean.getObj().getId());
                                                             SpUtils.setCityName(context, bean.getObj().getCity_area());
                                                             startActivity(intent);

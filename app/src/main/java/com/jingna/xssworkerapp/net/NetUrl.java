@@ -48,4 +48,8 @@ public class NetUrl {
     public static String openCityListUrl = "index.php/api/Index/Home/OpenCityList";
     //保存长据地
     public static String habitualresidenceUrl = "index.php/WorkApi/User/habitualresidence";
+    //首页订单
+    public static String indexOrderUrl = "index.php/WorkApi/User/IndexOrder";
+    //修改首页听单状态
+    public static String updateWorkerRadioUrl = "index.php/WorkApi/User/UpdateWorkerRadio";
 }

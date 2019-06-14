@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +22,9 @@ import com.jingna.xssworkerapp.base.BaseActivity;
 import com.jingna.xssworkerapp.fragment.FragmentIndex;
 import com.jingna.xssworkerapp.fragment.FragmentMessage;
 import com.jingna.xssworkerapp.fragment.FragmentMy;
+import com.jingna.xssworkerapp.receiver.TagAliasOperatorHelper;
+import com.jingna.xssworkerapp.util.Logger;
+import com.jingna.xssworkerapp.util.SpUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
 import com.vise.xsnow.permission.OnPermissionCallback;
 import com.vise.xsnow.permission.PermissionManager;
@@ -29,10 +34,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.JPushMessage;
+import cn.jpush.android.service.JPushMessageReceiver;
 
 public class MainActivity extends BaseActivity {
 
     private Context context = MainActivity.this;
+    private static final int TAG = 1010;
 
     @BindView(R.id.menu_index)
     ImageButton ibIndex;
@@ -78,6 +87,45 @@ public class MainActivity extends BaseActivity {
 
         ButterKnife.bind(MainActivity.this);
         init();
+//        setAlias();
+        TagAliasOperatorHelper.TagAliasBean tagAliasBean = new TagAliasOperatorHelper.TagAliasBean();
+        tagAliasBean.isAliasAction = true;
+        tagAliasBean.action = TagAliasOperatorHelper.ACTION_SET;
+        tagAliasBean.alias = "j_"+ SpUtils.getUid(context);//别名
+        TagAliasOperatorHelper.getInstance().handleAction(context, TAG, tagAliasBean);
+
+    }
+
+//    private final Handler mHandler = new Handler() {
+//        @Override
+//        public void handleMessage(android.os.Message msg) {
+//            super.handleMessage(msg);
+//            if (msg.what == 100) {
+//                setAlias();
+//            }
+//        }
+//    };
+//    private  JPushMessageReceiver jPushMessageReceiver = new JPushMessageReceiver() {
+//        @Override
+//        public void onAliasOperatorResult(Context context, JPushMessage jPushMessage) {
+//            super.onAliasOperatorResult(context, jPushMessage);
+//            if (jPushMessage.getErrorCode() == 6002) {//超时处理
+//                Message obtain = Message.obtain();
+//                obtain.what = 100;
+//                mHandler.sendMessageDelayed(obtain, 1000 * 60);//60秒后重新验证
+//            }else {
+//                Logger.e("onAliasOperatorResult: ", jPushMessage.getErrorCode()+"");
+//            }
+//        }
+//    };
+
+    private void setAlias() {
+
+        String alias = "j_"+ SpUtils.getUid(context);//别名
+        if ( !alias.isEmpty()) {
+            JPushInterface.setAlias(getApplicationContext(), TAG, alias);//设置别名或标签
+            ToastUtil.showShort(context, "设置别名");
+        }
 
     }
 

@@ -79,7 +79,11 @@ public class CityActivity extends BaseActivity {
                                             finish();
                                         }else if(type == 0){
                                             Intent intent = new Intent();
-                                            intent.setClass(context, MainActivity.class);
+                                            if(SpUtils.getUid(context).equals("0")){
+                                                intent.setClass(context, LoginActivity.class);
+                                            }else {
+                                                intent.setClass(context, MainActivity.class);
+                                            }
                                             SpUtils.setCityId(context, mList.get(pos).getId());
                                             SpUtils.setCityName(context, mList.get(pos).getCity_area());
                                             startActivity(intent);

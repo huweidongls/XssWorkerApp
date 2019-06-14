@@ -1,6 +1,8 @@
 package com.jingna.xssworkerapp.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
@@ -11,12 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.adapter.FragmentNewOrderAdapter;
 import com.jingna.xssworkerapp.base.BaseFragment;
+import com.jingna.xssworkerapp.bean.IndexOrderBean;
+import com.jingna.xssworkerapp.net.NetUrl;
 import com.jingna.xssworkerapp.pages.CityActivity;
 import com.jingna.xssworkerapp.util.SpUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +46,13 @@ public class FragmentNewOrder extends BaseFragment {
     RecyclerView recyclerView;
     @BindView(R.id.tv_city)
     TextView tvCity;
+    @BindView(R.id.tv_jiedan_type)
+    TextView tvJiedanType;
 
     private FragmentNewOrderAdapter adapter;
-    private List<String> mList;
+    private List<IndexOrderBean.ObjBean.ListBean> mList;
+
+    private String user_radio = "";
 
     @Nullable
     @Override
@@ -56,24 +70,50 @@ public class FragmentNewOrder extends BaseFragment {
         String[] s = SpUtils.getCityName(getContext()).split("-");
         tvCity.setText(s[1]);
 
-        mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        adapter = new FragmentNewOrderAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.POST(NetUrl.indexOrderUrl)
+                .addParam("app_key", getToken(NetUrl.BASE_URL + NetUrl.indexOrderUrl))
+                .addParam("uid", SpUtils.getUid(getContext()))
+                .addParam("type", "0")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.optInt("code") == 200) {
+                                Gson gson = new Gson();
+                                IndexOrderBean bean = gson.fromJson(data, IndexOrderBean.class);
+                                user_radio = bean.getObj().getUser_radio();
+                                if (user_radio.equals("0")) {
+                                    tvJiedanType.setText("开始接单");
+                                    tvJiedanType.setTextColor(Color.parseColor("#3296fa"));
+                                } else if (user_radio.equals("1")) {
+                                    tvJiedanType.setText("停止接单");
+                                    tvJiedanType.setTextColor(Color.parseColor("#A9ABAE"));
+                                }
+                                mList = bean.getObj().getList();
+                                adapter = new FragmentNewOrderAdapter(mList);
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
-    @OnClick({R.id.rl_tingdan, R.id.rl_city})
-    public void onClick(View view){
+    @OnClick({R.id.rl_tingdan, R.id.rl_city, R.id.tv_jiedan_type})
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rl_tingdan:
 
                 break;
@@ -83,6 +123,63 @@ public class FragmentNewOrder extends BaseFragment {
                 intent.putExtra("city", s[1]);
                 intent.putExtra("type", 1);
                 startActivity(intent);
+                break;
+            case R.id.tv_jiedan_type:
+                if(user_radio.equals("0")){
+                    ViseHttp.POST(NetUrl.updateWorkerRadioUrl)
+                            .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.updateWorkerRadioUrl))
+                            .addParam("uid", SpUtils.getUid(getContext()))
+                            .addParam("radio", "1")
+                            .addParam("city", SpUtils.getCityId(getContext()))
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.optInt("code") == 200){
+                                            ToastUtil.showShort(getContext(), "开始接单");
+                                            initData();
+                                        }else {
+                                            ToastUtil.showShort(getContext(), jsonObject.optString("message"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }else if(user_radio.equals("1")){
+                    ViseHttp.POST(NetUrl.updateWorkerRadioUrl)
+                            .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.updateWorkerRadioUrl))
+                            .addParam("uid", SpUtils.getUid(getContext()))
+                            .addParam("radio", "0")
+                            .addParam("city", SpUtils.getCityId(getContext()))
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.optInt("code") == 200){
+                                            ToastUtil.showShort(getContext(), "停止接单");
+                                            initData();
+                                        }else {
+                                            ToastUtil.showShort(getContext(), jsonObject.optString("message"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
                 break;
         }
     }

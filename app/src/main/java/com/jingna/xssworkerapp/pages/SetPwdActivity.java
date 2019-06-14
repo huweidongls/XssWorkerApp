@@ -1,6 +1,7 @@
 package com.jingna.xssworkerapp.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.jingna.xssworkerapp.MainActivity;
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.base.BaseActivity;
 import com.jingna.xssworkerapp.bean.RegisterBean;
@@ -115,6 +117,9 @@ public class SetPwdActivity extends BaseActivity {
                                                 RegisterBean bean = gson.fromJson(data, RegisterBean.class);
                                                 SpUtils.setUid(context, bean.getObj().getUid());
                                                 SpUtils.setPhoneNum(context, tel);
+                                                Intent intent1 = new Intent();
+                                                intent1.setClass(context, MainActivity.class);
+                                                startActivity(intent1);
                                                 finish();
                                             }
                                         } catch (JSONException e) {

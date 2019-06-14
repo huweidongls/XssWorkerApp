@@ -3,15 +3,19 @@ package com.jingna.xssworkerapp.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import com.jingna.xssworkerapp.MainActivity;
+import com.jingna.xssworkerapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
@@ -26,9 +30,16 @@ import cn.jpush.android.api.JPushInterface;
 public class MyReceiver extends BroadcastReceiver {
     private static final String TAG = "JIGUANG-Example";
 
+    //创建一个SoundPool对象
+    private SoundPool soundPool;
+    //定义一个HashMap用于存放音频流的ID
+    private HashMap<Integer, Integer> musicId=new HashMap<Integer, Integer>();
+
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
+            soundPool = new SoundPool(12, AudioManager.STREAM_MUSIC,5);
+            musicId.put(1, soundPool.load(context, R.raw.new_order, 1));
             Bundle bundle = intent.getExtras();
             Logger.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
@@ -40,12 +51,22 @@ public class MyReceiver extends BroadcastReceiver {
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
                 Logger.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
                 processCustomMessage(context, bundle);
-
+                soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                    @Override
+                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                        soundPool.play(musicId.get(1),1,1, 1, 0, 1);
+                    }
+                });
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
                 Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知");
                 int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
                 Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-
+//                soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+//                    @Override
+//                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+//                        soundPool.play(musicId.get(1),1,1, 0, 0, 1);
+//                    }
+//                });
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 Logger.d(TAG, "[MyReceiver] 用户点击打开了通知");
 

@@ -6,8 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jingna.xssworkerapp.R;
+import com.jingna.xssworkerapp.bean.IndexOrderBean;
 import com.jingna.xssworkerapp.pages.OrderDetailsActivity;
 
 import java.util.List;
@@ -19,9 +23,9 @@ import java.util.List;
 public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYijieOrderAdapter.ViewHolder> {
 
     private Context context;
-    private List<String> data;
+    private List<IndexOrderBean.ObjBean.ListBean> data;
 
-    public FragmentYijieOrderAdapter(List<String> data) {
+    public FragmentYijieOrderAdapter(List<IndexOrderBean.ObjBean.ListBean> data) {
         this.data = data;
     }
 
@@ -35,6 +39,21 @@ public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYiji
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        holder.tvName.setText(data.get(position).getService_type());
+        holder.tvAddtime.setText(data.get(position).getAddtime());
+        holder.tvTime.setText(data.get(position).getPretime());
+        holder.tvAddress.setText(data.get(position).getAddress());
+        holder.tvCoupons.setText(data.get(position).getCoupon());
+        String radio = data.get(position).getRadio();
+        if(radio.equals("0")||radio.equals("1")||radio.equals("2")){
+            Glide.with(context).load(R.mipmap.weikaishi).into(holder.ivType);
+        }else if(radio.equals("3")){
+            Glide.with(context).load(R.mipmap.yifuwu).into(holder.ivType);
+        }else {
+            Glide.with(context).load(R.mipmap.yiwancheng).into(holder.ivType);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +62,7 @@ public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYiji
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -52,8 +72,21 @@ public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYiji
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        private TextView tvName;
+        private TextView tvAddtime;
+        private TextView tvTime;
+        private TextView tvAddress;
+        private TextView tvCoupons;
+        private ImageView ivType;
+
         public ViewHolder(View itemView) {
             super(itemView);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvAddtime = itemView.findViewById(R.id.tv_addtime);
+            tvTime = itemView.findViewById(R.id.tv_time);
+            tvAddress = itemView.findViewById(R.id.tv_address);
+            tvCoupons = itemView.findViewById(R.id.tv_coupons);
+            ivType = itemView.findViewById(R.id.iv_type);
         }
     }
 
