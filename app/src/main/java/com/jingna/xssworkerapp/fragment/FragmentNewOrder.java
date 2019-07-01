@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.adapter.FragmentNewOrderAdapter;
+import com.jingna.xssworkerapp.app.MyApplication;
 import com.jingna.xssworkerapp.base.BaseFragment;
 import com.jingna.xssworkerapp.bean.IndexOrderBean;
 import com.jingna.xssworkerapp.net.NetUrl;
@@ -63,6 +64,15 @@ public class FragmentNewOrder extends BaseFragment {
         initData();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(MyApplication.isNew){
+            initData();
+            MyApplication.isNew = false;
+        }
     }
 
     private void initData() {

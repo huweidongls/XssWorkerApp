@@ -23,7 +23,7 @@ public class ExampleUtil {
     public static final String PREFS_DAYS = "JPUSH_EXAMPLE_DAYS";
     public static final String PREFS_START_TIME = "PREFS_START_TIME";
     public static final String PREFS_END_TIME = "PREFS_END_TIME";
-    public static final String KEY_APP_KEY = "JPUSH_APPKEY";
+    public static final String KEY_APP_KEY = "efeb5628979ac4af63112576";
 
     public static boolean isEmpty(String s) {
         if (null == s)

@@ -24,6 +24,7 @@ public class MyApplication extends Application {
     private List<Activity> mList = new LinkedList<Activity>();
     // 修改密码获取验证码倒计时
     public static EditPwdTimeCount editPwdTimeCount;
+    public static boolean isNew = false;
 
     public MyApplication() {
     }
