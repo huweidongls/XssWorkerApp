@@ -75,8 +75,8 @@ public class OrderDetailsActivity extends BaseActivity {
         public void onLocationChanged(Location location) {
             mCurrentLat = location.getLatitude();
             mCurrentLng = location.getLongitude();
-            Toast.makeText(OrderDetailsActivity.this, mCurrentLat
-                    + "--" + mCurrentLng, Toast.LENGTH_LONG).show();
+//            Toast.makeText(OrderDetailsActivity.this, mCurrentLat
+//                    + "--" + mCurrentLng, Toast.LENGTH_LONG).show();
         }
 
         @Override
