@@ -148,6 +148,7 @@
         </LinearLayout>
         
         <TextView
+            android:id="@+id/tv_jiedan"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="16dp"
             android:gravity="center"

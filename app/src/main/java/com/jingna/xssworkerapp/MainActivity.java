@@ -4,14 +4,18 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -23,6 +27,7 @@ import com.jingna.xssworkerapp.fragment.FragmentIndex;
 import com.jingna.xssworkerapp.fragment.FragmentMessage;
 import com.jingna.xssworkerapp.fragment.FragmentMy;
 import com.jingna.xssworkerapp.receiver.TagAliasOperatorHelper;
+import com.jingna.xssworkerapp.service.ForegroundService;
 import com.jingna.xssworkerapp.util.Logger;
 import com.jingna.xssworkerapp.util.SpUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
@@ -94,6 +99,51 @@ public class MainActivity extends BaseActivity {
         tagAliasBean.alias = "j_"+ SpUtils.getUid(context);//别名
         TagAliasOperatorHelper.getInstance().handleAction(context, TAG, tagAliasBean);
 
+        initD();
+
+    }
+
+    private void initD() {
+
+        // 开启前台服务防止应用进入后台gps挂掉
+        startService(new Intent(this, ForegroundService.class));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ArrayList<String> permissions = new ArrayList<>();
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            }
+            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.RECORD_AUDIO);
+            }
+
+            if (permissions.size() != 0) {
+                requestPermissionsForM(permissions);
+            }
+        }
+
+    }
+
+    private void requestPermissionsForM(final ArrayList<String> per) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(per.toArray(new String[per.size()]), 1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, ForegroundService.class));
     }
 
 //    private final Handler mHandler = new Handler() {

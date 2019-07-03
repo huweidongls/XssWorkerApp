@@ -3,5 +3,5 @@
     <item android:drawable="@mipmap/index1" android:state_selected="true"></item>
     <item android:drawable="@mipmap/index1" android:state_focused="true"></item>
     <item android:drawable="@mipmap/index1" android:state_pressed="true"></item>
-    <item android:drawable="@mipmap/index1"></item>
+    <item android:drawable="@mipmap/index"></item>
 </selector>

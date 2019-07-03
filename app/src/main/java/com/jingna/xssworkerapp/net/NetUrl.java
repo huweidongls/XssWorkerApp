@@ -52,4 +52,6 @@ public class NetUrl {
     public static String indexOrderUrl = "index.php/WorkApi/User/IndexOrder";
     //修改首页听单状态
     public static String updateWorkerRadioUrl = "index.php/WorkApi/User/UpdateWorkerRadio";
+    //工人接单
+    public static String ReceiptUrl = "index.php/WorkApi/User/Receipt";
 }

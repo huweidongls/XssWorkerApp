@@ -53,6 +53,8 @@ public class FragmentMy extends BaseFragment {
     @BindView(R.id.tv_price)
     TextView tvPrice;
 
+    private String uid = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class FragmentMy extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+        uid = SpUtils.getUid(getContext());
         ViseHttp.POST(NetUrl.userInfoUrl)
                 .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.userInfoUrl))
                 .addParam("uid", SpUtils.getUid(getContext()))
@@ -118,27 +121,52 @@ public class FragmentMy extends BaseFragment {
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_my_wallet:
-                intent.setClass(getContext(), MyWalletActivity.class);
-                startActivity(intent);
+                if(uid.equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), MyWalletActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.rl_jiedan_set:
-                intent.setClass(getContext(), JiedanSetActivity.class);
-                startActivity(intent);
+                if(uid.equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), JiedanSetActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.rl_version:
-                intent.setClass(getContext(), LoginActivity.class);
-                startActivity(intent);
+                if(uid.equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.rl_about:
-                intent.setClass(getContext(), AboutActivity.class);
-                startActivity(intent);
+                if(uid.equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), AboutActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.tv_exit:
 
                 break;
             case R.id.rl_person_information:
-                intent.setClass(getContext(), PersonInformationActivity.class);
-                startActivity(intent);
+                if(uid.equals("0")){
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), PersonInformationActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
