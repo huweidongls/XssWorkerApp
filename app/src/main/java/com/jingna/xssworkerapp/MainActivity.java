@@ -28,6 +28,7 @@ import com.jingna.xssworkerapp.fragment.FragmentMessage;
 import com.jingna.xssworkerapp.fragment.FragmentMy;
 import com.jingna.xssworkerapp.receiver.TagAliasOperatorHelper;
 import com.jingna.xssworkerapp.service.ForegroundService;
+import com.jingna.xssworkerapp.service.UploadLocationService;
 import com.jingna.xssworkerapp.util.Logger;
 import com.jingna.xssworkerapp.util.SpUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
@@ -144,6 +145,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopService(new Intent(this, ForegroundService.class));
+        stopService(new Intent(this, UploadLocationService.class));
     }
 
 //    private final Handler mHandler = new Handler() {

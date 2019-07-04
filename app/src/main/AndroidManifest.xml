@@ -52,7 +52,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".pages.WelcomeActivity">
@@ -100,10 +99,10 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="5nRyBFW3zyya8gVbkUWtg7F6Oamna2aS" />
 
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
+        <!--<service-->
+            <!--android:name="com.baidu.location.f"-->
+            <!--android:enabled="true"-->
+            <!--android:process=":remote" />-->
 
         <activity
             android:name=".pages.OrderDetailsActivity"
@@ -270,6 +269,7 @@
             android:value="efeb5628979ac4af63112576" />
 
         <service android:name=".service.ForegroundService" />
+        <service android:name=".service.UploadLocationService"/>
 
         <activity
             android:name=".pages.DemoGuideActivity"

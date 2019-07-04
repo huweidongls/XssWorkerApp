@@ -38,7 +38,7 @@ public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYiji
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         holder.tvName.setText(data.get(position).getService_type());
         holder.tvAddtime.setText(data.get(position).getAddtime());
@@ -59,6 +59,7 @@ public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYiji
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(context, OrderDetailsActivity.class);
+                intent.putExtra("id", data.get(position).getId());
                 context.startActivity(intent);
             }
         });

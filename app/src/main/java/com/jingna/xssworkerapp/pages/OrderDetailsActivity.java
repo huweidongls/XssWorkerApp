@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.navisdk.adapter.BNRoutePlanNode;
@@ -27,9 +28,14 @@ import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.baidu.NormalUtils;
 import com.jingna.xssworkerapp.base.BaseActivity;
 import com.jingna.xssworkerapp.bean.BaiduPositionBean;
+import com.jingna.xssworkerapp.bean.OrderContentBean;
+import com.jingna.xssworkerapp.net.NetUrl;
+import com.jingna.xssworkerapp.service.UploadLocationService;
 import com.jingna.xssworkerapp.util.Gps;
 import com.jingna.xssworkerapp.util.Logger;
 import com.jingna.xssworkerapp.util.PositionUtil;
+import com.jingna.xssworkerapp.util.StringUtils;
+import com.jingna.xssworkerapp.util.TokenUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -40,6 +46,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -77,6 +84,7 @@ public class OrderDetailsActivity extends BaseActivity {
             mCurrentLng = location.getLongitude();
 //            Toast.makeText(OrderDetailsActivity.this, mCurrentLat
 //                    + "--" + mCurrentLng, Toast.LENGTH_LONG).show();
+            Logger.e("123123", "zoule"+mCurrentLat+"--"+mCurrentLng);
         }
 
         @Override
@@ -95,17 +103,75 @@ public class OrderDetailsActivity extends BaseActivity {
         }
     };
 
+    @BindView(R.id.tv_service_type)
+    TextView tvServiceType;
+    @BindView(R.id.tv_order_id)
+    TextView tvOrderId;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.tv_remarks)
+    TextView tvRemarks;
+
+    private String id = "";
+    private double lat;
+    private double lng;
+    private String address = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
 
+        id = getIntent().getStringExtra("id");
         ButterKnife.bind(OrderDetailsActivity.this);
+
+        initData();
 
         if (initDirs()) {
             initNavi();
         }
         initLocation();
+
+    }
+
+    private void initData() {
+
+        ViseHttp.POST(NetUrl.order_ContentUrl)
+                .addParam("app_key", TokenUtils.getToken(NetUrl.BASE_URL + NetUrl.order_ContentUrl))
+                .addParam("oid", id)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.optInt("code") == 200) {
+                                Gson gson = new Gson();
+                                OrderContentBean bean = gson.fromJson(data, OrderContentBean.class);
+                                tvServiceType.setText(bean.getObj().getService_type());
+                                tvOrderId.setText(bean.getObj().getOrder_code());
+                                tvTime.setText(bean.getObj().getPretime());
+                                tvAddress.setText(bean.getObj().getAddress());
+                                if (StringUtils.isEmpty(bean.getObj().getRemarks())) {
+                                    tvRemarks.setText("无");
+                                } else {
+                                    tvRemarks.setText(bean.getObj().getRemarks());
+                                }
+                                lat = Double.valueOf(bean.getObj().getLat());
+                                lng = Double.valueOf(bean.getObj().getLng());
+                                address = bean.getObj().getAddress();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 
@@ -265,60 +331,47 @@ public class OrderDetailsActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_go})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.rl_back, R.id.btn_go, R.id.btn_start})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_back:
                 finish();
                 break;
             case R.id.btn_go:
-                ViseHttp.GET("http://api.map.baidu.com/geocoder")
-                        .addParam("address", "哈尔滨市红旗小区")
-                        .addParam("output", "json")
-                        .addParam("ak", "5nRyBFW3zyya8gVbkUWtg7F6Oamna2aS")
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String data) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.optString("status").equals("OK")){
-                                        Gson gson = new Gson();
-                                        BaiduPositionBean positionBean = gson.fromJson(data, BaiduPositionBean.class);
-                                        Gps gps = PositionUtil.bd09_To_Gps84(positionBean.getResult().getLocation().getLat(), positionBean.getResult().getLocation().getLng());
-                                        if (BaiduNaviManagerFactory.getBaiduNaviManager().isInited()) {
-                                            if (mCurrentLat == 0 && mCurrentLng == 0) {
-                                                return;
-                                            }
-                                            BNRoutePlanNode sNode = new BNRoutePlanNode.Builder()
-                                                    .latitude(mCurrentLat)
-                                                    .longitude(mCurrentLng)
-                                                    .coordinateType(BNRoutePlanNode.CoordinateType.WGS84)
-                                                    .build();
-                                            BNRoutePlanNode eNode = new BNRoutePlanNode.Builder()
-                                                    .latitude(gps.getWgLat())
-                                                    .longitude(gps.getWgLon())
-                                                    .name("哈尔滨市红旗小区")
-                                                    .description("哈尔滨市红旗小区")
-                                                    .coordinateType(BNRoutePlanNode.CoordinateType.WGS84)
-                                                    .build();
-                                            mStartNode = sNode;
+                if(lat != 0&&lng != 0){
+                    Gps gps = PositionUtil.bd09_To_Gps84(lat, lng);
+                    if (BaiduNaviManagerFactory.getBaiduNaviManager().isInited()) {
+                        if (mCurrentLat == 0 && mCurrentLng == 0) {
+                            return;
+                        }
 
-                                            routePlanToNavi(sNode, eNode, NORMAL);
-                                        }
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                        Intent intent = new Intent(context, UploadLocationService.class);
+                        intent.putExtra("id", id);
+                        startService(intent);
 
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
+                        BNRoutePlanNode sNode = new BNRoutePlanNode.Builder()
+                                .latitude(mCurrentLat)
+                                .longitude(mCurrentLng)
+                                .coordinateType(BNRoutePlanNode.CoordinateType.WGS84)
+                                .build();
+                        BNRoutePlanNode eNode = new BNRoutePlanNode.Builder()
+                                .latitude(gps.getWgLat())
+                                .longitude(gps.getWgLon())
+                                .name(address)
+                                .description(address)
+                                .coordinateType(BNRoutePlanNode.CoordinateType.WGS84)
+                                .build();
+                        mStartNode = sNode;
 
-                            }
-                        });
+                        routePlanToNavi(sNode, eNode, NORMAL);
+                    }
+                }
 //                if (BaiduNaviManagerFactory.getBaiduNaviManager().isInited()) {
 //                    calRoutePlanNode(BNRoutePlanNode.CoordinateType.GCJ02);
 //                }
+                break;
+            case R.id.btn_start:
+                stopService(new Intent(this, UploadLocationService.class));
                 break;
         }
     }
@@ -367,7 +420,7 @@ public class OrderDetailsActivity extends BaseActivity {
                                 if (from == NORMAL) {
                                     intent = new Intent(OrderDetailsActivity.this,
                                             DemoGuideActivity.class);
-                                }  else if (from == EXTERNAL) {
+                                } else if (from == EXTERNAL) {
                                     intent = new Intent(OrderDetailsActivity.this,
                                             DemoExtGpsActivity.class);
                                 }

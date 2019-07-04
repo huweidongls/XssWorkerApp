@@ -54,4 +54,8 @@ public class NetUrl {
     public static String updateWorkerRadioUrl = "index.php/WorkApi/User/UpdateWorkerRadio";
     //工人接单
     public static String ReceiptUrl = "index.php/WorkApi/User/Receipt";
+    //订单详情
+    public static String order_ContentUrl = "index.php/WorkApi/User/Order_Content";
+    //上传坐标
+    public static String uploadCoordinatesUrl = "index.php/WorkApi/User/UploadCoordinates";
 }
