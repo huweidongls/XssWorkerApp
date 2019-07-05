@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,11 +114,15 @@ public class OrderDetailsActivity extends BaseActivity {
     TextView tvAddress;
     @BindView(R.id.tv_remarks)
     TextView tvRemarks;
+    @BindView(R.id.btn_start)
+    Button btnStart;
 
     private String id = "";
     private double lat;
     private double lng;
     private String address = "";
+
+    private String radio = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +166,16 @@ public class OrderDetailsActivity extends BaseActivity {
                                 lat = Double.valueOf(bean.getObj().getLat());
                                 lng = Double.valueOf(bean.getObj().getLng());
                                 address = bean.getObj().getAddress();
+                                radio = bean.getObj().getRadio();
+                                if(radio.equals("0")){
+                                    btnStart.setText("服务开始");
+                                    btnStart.setVisibility(View.VISIBLE);
+                                }else if(radio.equals("1")){
+                                    btnStart.setText("服务结束");
+                                    btnStart.setVisibility(View.VISIBLE);
+                                }else {
+                                    btnStart.setVisibility(View.GONE);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -371,7 +386,54 @@ public class OrderDetailsActivity extends BaseActivity {
 //                }
                 break;
             case R.id.btn_start:
-                stopService(new Intent(this, UploadLocationService.class));
+//                stopService(new Intent(this, UploadLocationService.class));
+                if(radio.equals("0")){
+                    ViseHttp.POST(NetUrl.service_startUrl)
+                            .addParam("app_key", TokenUtils.getToken(NetUrl.BASE_URL+NetUrl.service_startUrl))
+                            .addParam("oid", id)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.optInt("code") == 200){
+                                            radio = "1";
+                                            btnStart.setText("服务结束");
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }else if(radio.equals("1")){
+                    ViseHttp.POST(NetUrl.service_endUrl)
+                            .addParam("app_key", TokenUtils.getToken(NetUrl.BASE_URL+NetUrl.service_endUrl))
+                            .addParam("oid", id)
+                            .request(new ACallback<String>() {
+                                @Override
+                                public void onSuccess(String data) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(data);
+                                        if(jsonObject.optInt("code") == 200){
+                                            radio = "2";
+                                            btnStart.setVisibility(View.GONE);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int errCode, String errMsg) {
+
+                                }
+                            });
+                }
                 break;
         }
     }

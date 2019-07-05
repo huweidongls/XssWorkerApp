@@ -58,4 +58,8 @@ public class NetUrl {
     public static String order_ContentUrl = "index.php/WorkApi/User/Order_Content";
     //上传坐标
     public static String uploadCoordinatesUrl = "index.php/WorkApi/User/UploadCoordinates";
+    //服务开始(设置)
+    public static String service_startUrl = "index.php/WorkApi/User/service_start";
+    //服务结束(设置)
+    public static String service_endUrl = "index.php/WorkApi/User/service_end";
 }

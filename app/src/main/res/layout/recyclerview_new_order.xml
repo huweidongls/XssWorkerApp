@@ -73,12 +73,14 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:visibility="gone"
                 android:layout_marginLeft="48dp"
                 android:src="@mipmap/rv_new2"
                 android:layout_width="28dp"
                 android:layout_height="28dp" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="9dp"
                 android:textSize="16sp"

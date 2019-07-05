@@ -60,7 +60,7 @@ public class OrderContentBean {
         private String pretime;
         private String address;
         private String remarks;
-        private String radio;
+        private String status;
         private String address_id;
         private String lng;
         private String lat;
@@ -114,11 +114,11 @@ public class OrderContentBean {
         }
 
         public String getRadio() {
-            return radio;
+            return status;
         }
 
-        public void setRadio(String radio) {
-            this.radio = radio;
+        public void setRadio(String status) {
+            this.status = status;
         }
 
         public String getAddress_id() {

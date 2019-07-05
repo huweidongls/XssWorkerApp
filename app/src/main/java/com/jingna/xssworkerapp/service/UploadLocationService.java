@@ -132,8 +132,8 @@ public class UploadLocationService extends Service {
 //                Toast.makeText(this, "没有权限", Toast.LENGTH_SHORT).show();
                 return;
             }
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                    2000, 1000, mLocationListener);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    2000, 5, mLocationListener);
         }
     }
 

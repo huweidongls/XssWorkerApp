@@ -46,12 +46,18 @@ public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYiji
         holder.tvAddress.setText(data.get(position).getAddress());
         holder.tvCoupons.setText(data.get(position).getCoupon());
         String radio = data.get(position).getRadio();
-        if(radio.equals("0")||radio.equals("1")||radio.equals("2")){
+        if(radio.equals("0")){
             Glide.with(context).load(R.mipmap.weikaishi).into(holder.ivType);
-        }else if(radio.equals("3")){
+        }else if(radio.equals("1")){
+            Glide.with(context).load(R.mipmap.fuwuzhong).into(holder.ivType);
+        }else if(radio.equals("2")){
             Glide.with(context).load(R.mipmap.yifuwu).into(holder.ivType);
-        }else {
+        }else if(radio.equals("3")){
             Glide.with(context).load(R.mipmap.yiwancheng).into(holder.ivType);
+        }else if(radio.equals("4")){
+            Glide.with(context).load(R.mipmap.tuikuanzhong).into(holder.ivType);
+        }else if(radio.equals("5")){
+            Glide.with(context).load(R.mipmap.yituikuan).into(holder.ivType);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

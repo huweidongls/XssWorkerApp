@@ -198,6 +198,7 @@
         android:layout_height="44dp" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btn_start"
         android:textSize="17sp"
         android:textColor="@color/white_ffffff"

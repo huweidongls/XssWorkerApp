@@ -83,14 +83,14 @@ public class IndexOrderBean {
             private String address;
             private String addtime;
             private String coupon;
-            private String radio;
+            private String status;
 
             public String getRadio() {
-                return radio;
+                return status;
             }
 
-            public void setRadio(String radio) {
-                this.radio = radio;
+            public void setRadio(String status) {
+                this.status = status;
             }
 
             public String getId() {
