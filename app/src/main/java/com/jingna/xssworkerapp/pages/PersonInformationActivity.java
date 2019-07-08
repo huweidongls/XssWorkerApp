@@ -61,19 +61,25 @@ public class PersonInformationActivity extends BaseActivity {
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
 
+    private String real = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_information);
 
         ButterKnife.bind(PersonInformationActivity.this);
-        initData();
+        initJsonData();
 
     }
 
-    private void initData() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initData();
+    }
 
-        initJsonData();
+    private void initData() {
 
         ViseHttp.POST(NetUrl.personalDataUrl)
                 .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.personalDataUrl))
@@ -88,19 +94,20 @@ public class PersonInformationActivity extends BaseActivity {
                                 PersonalDataBean bean = gson.fromJson(data, PersonalDataBean.class);
                                 Glide.with(context).load(NetUrl.BASE_URL+bean.getObj().getHeadimg()).into(ivAvatar);
                                 tvName.setText(bean.getObj().getUsername());
-                                if(bean.getObj().getReal().equals("0")){
+                                real = bean.getObj().getReal();
+                                if(real.equals("0")){
                                     tvIsReal.setText("未实名认证");
                                     tvIsReal.setBackgroundResource(R.drawable.bg_66191f25_2dp);
                                     tvIsReal.setTextColor(Color.parseColor("#66191f25"));
-                                }else if(bean.getObj().getReal().equals("1")){
+                                }else if(real.equals("1")){
                                     tvIsReal.setText("等待认证");
                                     tvIsReal.setBackgroundResource(R.drawable.bg_66191f25_2dp);
                                     tvIsReal.setTextColor(Color.parseColor("#66191f25"));
-                                }else if(bean.getObj().getReal().equals("2")){
+                                }else if(real.equals("2")){
                                     tvIsReal.setText("已实名认证");
                                     tvIsReal.setBackgroundResource(R.drawable.bg_3296fa_2dp);
                                     tvIsReal.setTextColor(Color.parseColor("#3296fa"));
-                                }else if(bean.getObj().getReal().equals("3")){
+                                }else if(real.equals("3")){
                                     tvIsReal.setText("认证失败");
                                     tvIsReal.setBackgroundResource(R.drawable.bg_3296fa_2dp);
                                     tvIsReal.setTextColor(Color.parseColor("#3296fa"));
@@ -134,8 +141,14 @@ public class PersonInformationActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ll_real_name:
-                intent.setClass(context, RealNameActivity.class);
-                startActivity(intent);
+                if(real.equals("0")||real.equals("3")){
+                    intent.setClass(context, RealNameActivity.class);
+                    startActivity(intent);
+                }else if(real.equals("1")){
+                    ToastUtil.showShort(context, "认证中，请等待...");
+                }else if(real.equals("2")){
+                    ToastUtil.showShort(context, "实名认证已通过!");
+                }
                 break;
             case R.id.ll_work_experience:
                 intent.setClass(context, WorkExperienceActivity.class);

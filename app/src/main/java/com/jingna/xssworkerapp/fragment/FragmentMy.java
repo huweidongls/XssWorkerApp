@@ -143,8 +143,7 @@ public class FragmentMy extends BaseFragment {
                     intent.setClass(getContext(), LoginActivity.class);
                     startActivity(intent);
                 }else {
-                    intent.setClass(getContext(), LoginActivity.class);
-                    startActivity(intent);
+
                 }
                 break;
             case R.id.rl_about:

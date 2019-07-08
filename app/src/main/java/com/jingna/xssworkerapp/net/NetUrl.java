@@ -62,4 +62,14 @@ public class NetUrl {
     public static String service_startUrl = "index.php/WorkApi/User/service_start";
     //服务结束(设置)
     public static String service_endUrl = "index.php/WorkApi/User/service_end";
+    //银行卡列表
+    public static String worker_bank_listUrl = "index.php/WorkApi/User/worker_bank_list";
+    //绑定银行卡
+    public static String addWokerBankUrl = "index.php/WorkApi/User/AddWokerBank";
+    //解绑银行卡
+    public static String untyingBnakUrl = "index.php/WorkApi/User/UntyingBnak";
+    //我的钱包
+    public static String myWalletUrl = "index.php/WorkApi/User/MyWallet";
+    //工人提现
+    public static String cash_WokerUrl = "index.php/WorkApi/User/Cash_Woker";
 }

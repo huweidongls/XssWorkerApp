@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.jingna.xssworkerapp.net.NetUrl;
+import com.jingna.xssworkerapp.util.BankCardTimeCount;
 import com.jingna.xssworkerapp.util.EditPwdTimeCount;
+import com.jingna.xssworkerapp.util.RemoveBankCardTimeCount;
 import com.vise.xsnow.http.ViseHttp;
 
 import java.util.LinkedList;
@@ -22,6 +24,8 @@ public class MyApplication extends Application {
     private List<Activity> mList = new LinkedList<Activity>();
     // 修改密码获取验证码倒计时
     public static EditPwdTimeCount editPwdTimeCount;
+    public static BankCardTimeCount bankCardTimeCount;
+    public static RemoveBankCardTimeCount removeBankCardTimeCount;
     public static boolean isNew = false;
 
     public MyApplication() {
@@ -40,6 +44,8 @@ public class MyApplication extends Application {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         editPwdTimeCount = new EditPwdTimeCount(60000, 1000);
+        bankCardTimeCount = new BankCardTimeCount(60000, 1000);
+        removeBankCardTimeCount = new RemoveBankCardTimeCount(60000, 1000);
     }
 
     public synchronized static MyApplication getInstance() {
