@@ -2,6 +2,7 @@ package com.jingna.xssworkerapp.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jingna.xssworkerapp.R;
+import com.jingna.xssworkerapp.app.MyApplication;
 import com.jingna.xssworkerapp.base.BaseFragment;
 import com.jingna.xssworkerapp.bean.UserInfoBean;
+import com.jingna.xssworkerapp.dialog.CustomDialog;
 import com.jingna.xssworkerapp.net.NetUrl;
 import com.jingna.xssworkerapp.pages.AboutActivity;
 import com.jingna.xssworkerapp.pages.JiedanSetActivity;
@@ -22,6 +25,8 @@ import com.jingna.xssworkerapp.pages.LoginActivity;
 import com.jingna.xssworkerapp.pages.MyWalletActivity;
 import com.jingna.xssworkerapp.pages.PersonInformationActivity;
 import com.jingna.xssworkerapp.util.SpUtils;
+import com.jingna.xssworkerapp.util.StringUtils;
+import com.jingna.xssworkerapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -54,6 +59,7 @@ public class FragmentMy extends BaseFragment {
     TextView tvPrice;
 
     private String uid = "";
+    private String tel = "";
 
     @Nullable
     @Override
@@ -103,6 +109,7 @@ public class FragmentMy extends BaseFragment {
                                 tvCompleteNum.setText(bean.getObj().getTheorder()+"单");
                                 tvNewNum.setText(bean.getObj().getOrder_task()+"单");
                                 tvPrice.setText(bean.getObj().getPrice()+"元");
+                                tel = bean.getObj().getTel();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -116,7 +123,8 @@ public class FragmentMy extends BaseFragment {
                 });
     }
 
-    @OnClick({R.id.rl_my_wallet, R.id.rl_jiedan_set, R.id.rl_version, R.id.rl_about, R.id.tv_exit, R.id.rl_person_information})
+    @OnClick({R.id.rl_my_wallet, R.id.rl_jiedan_set, R.id.rl_version, R.id.rl_about, R.id.tv_exit, R.id.rl_person_information
+    , R.id.iv_kefu})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -139,12 +147,7 @@ public class FragmentMy extends BaseFragment {
                 }
                 break;
             case R.id.rl_version:
-                if(uid.equals("0")){
-                    intent.setClass(getContext(), LoginActivity.class);
-                    startActivity(intent);
-                }else {
-
-                }
+                ToastUtil.showShort(getContext(), "已是最新版本！");
                 break;
             case R.id.rl_about:
                 if(uid.equals("0")){
@@ -156,7 +159,19 @@ public class FragmentMy extends BaseFragment {
                 }
                 break;
             case R.id.tv_exit:
+                CustomDialog dialog = new CustomDialog(getContext(), "是否退出登录", new CustomDialog.ClickListener() {
+                    @Override
+                    public void onSure() {
+                        SpUtils.clear(getContext());
+                        MyApplication.getInstance().exit();
+                    }
 
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+                dialog.show();
                 break;
             case R.id.rl_person_information:
                 if(uid.equals("0")){
@@ -165,6 +180,12 @@ public class FragmentMy extends BaseFragment {
                 }else {
                     intent.setClass(getContext(), PersonInformationActivity.class);
                     startActivity(intent);
+                }
+                break;
+            case R.id.iv_kefu:
+                if(!StringUtils.isEmpty(tel)){
+                    Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));//跳转到拨号界面，同时传递电话号码
+                    startActivity(dialIntent);
                 }
                 break;
         }

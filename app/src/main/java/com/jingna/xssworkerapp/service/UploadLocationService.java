@@ -1,21 +1,13 @@
 package com.jingna.xssworkerapp.service;
 
-import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import com.jingna.xssworkerapp.net.NetUrl;
-import com.jingna.xssworkerapp.util.Gps;
 import com.jingna.xssworkerapp.util.Logger;
-import com.jingna.xssworkerapp.util.PositionUtil;
 import com.jingna.xssworkerapp.util.TokenUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -35,6 +27,9 @@ public class UploadLocationService extends Service {
     private Timer timer;
     private String id = "";
 
+//    public LocationClient mLocationClient = null;
+//    public BDLocationListener myListener = new MyLocationListener();
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -43,37 +38,12 @@ public class UploadLocationService extends Service {
 
     private double mCurrentLat;
     private double mCurrentLng;
-    private LocationManager mLocationManager;
-    private LocationListener mLocationListener = new LocationListener() {
-
-        @Override
-        public void onLocationChanged(Location location) {
-            mCurrentLat = location.getLatitude();
-            mCurrentLng = location.getLongitude();
-//            Toast.makeText(OrderDetailsActivity.this, mCurrentLat
-//                    + "--" + mCurrentLng, Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
 
     @Override
     public void onCreate() {
         super.onCreate();
-        initLocation();
+        startLocate();
+        Log.e("123123", "oncreate");
     }
 
     @Override
@@ -81,6 +51,7 @@ public class UploadLocationService extends Service {
         super.onStart(intent, startId);
         id = intent.getStringExtra("id");
         uploadLocation();
+        Log.e("123123", "onstart"+"--"+id);
     }
 
     private void uploadLocation() {
@@ -90,11 +61,10 @@ public class UploadLocationService extends Service {
             @Override
             public void run() {
                 if(mCurrentLat!=0&&mCurrentLng!=0){
-                    Gps gps = PositionUtil.Gps84_To_bd09(mCurrentLat, mCurrentLng);
                     ViseHttp.POST(NetUrl.uploadCoordinatesUrl)
                             .addParam("app_key", TokenUtils.getToken(NetUrl.BASE_URL+NetUrl.uploadCoordinatesUrl))
-                            .addParam("lat", gps.getWgLat()+"")
-                            .addParam("lng", gps.getWgLon()+"")
+                            .addParam("lat", mCurrentLat+"")
+                            .addParam("lng", mCurrentLng+"")
                             .addParam("oid", id)
                             .request(new ACallback<String>() {
                                 @Override
@@ -118,34 +88,56 @@ public class UploadLocationService extends Service {
                             });
                 }
             }
-        }, 1000, 10000);
+        }, 1000, 3000);
+
+        startLocate();
 
     }
 
-    private void initLocation() {
-        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (mLocationManager != null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission
-                    .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat
-                    .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(this, "没有权限", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    2000, 5, mLocationListener);
-        }
+    /**
+     * 定位
+     */
+    private void startLocate() {
+//        mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
+//        mLocationClient.registerLocationListener(myListener);    //注册监听函数
+//        LocationClientOption option = new LocationClientOption();
+//        option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving
+//        );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+//        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
+//        int span = 10000;
+//        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+//        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+//        option.setOpenGps(true);//可选，默认false,设置是否使用gps
+//        option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
+//        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+//        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+//        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+//        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+//        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
+//        mLocationClient.setLocOption(option);
+//        //开启定位
+//        mLocationClient.start();
+//        Log.e("123123", "start");
     }
+
+//    private class MyLocationListener implements BDLocationListener {
+//
+//        @Override
+//        public void onReceiveLocation(BDLocation bdLocation) {
+//            Log.e("123123", "listener");
+//            mCurrentLat = bdLocation.getLatitude();
+//            mCurrentLng = bdLocation.getLongitude();
+//            Log.e("123123", "lat" + bdLocation.getLatitude() + "long" + bdLocation.getLongitude());
+//        }
+//    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mLocationManager != null) {
-            mLocationManager.removeUpdates(mLocationListener);
-        }
         if(timer != null){
             timer.cancel();
         }
+//        mLocationClient.stop();
     }
 
 }

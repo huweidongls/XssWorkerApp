@@ -204,6 +204,7 @@
             android:layout_height="1dp"/>
 
         <RelativeLayout
+            android:id="@+id/rl_payment_details"
             android:background="@drawable/selector_fragment_my_bg"
             android:layout_width="match_parent"
             android:layout_height="48dp">

@@ -116,6 +116,8 @@ public class OrderDetailsActivity extends BaseActivity {
     TextView tvRemarks;
     @BindView(R.id.btn_start)
     Button btnStart;
+    @BindView(R.id.btn_go)
+    Button btnGo;
 
     private String id = "";
     private double lat;
@@ -175,6 +177,11 @@ public class OrderDetailsActivity extends BaseActivity {
                                     btnStart.setVisibility(View.VISIBLE);
                                 }else {
                                     btnStart.setVisibility(View.GONE);
+                                }
+                                if(radio.equals("0")){
+                                    btnGo.setVisibility(View.VISIBLE);
+                                }else {
+                                    btnGo.setVisibility(View.GONE);
                                 }
                             }
                         } catch (JSONException e) {
@@ -360,9 +367,9 @@ public class OrderDetailsActivity extends BaseActivity {
                             return;
                         }
 
-                        Intent intent = new Intent(context, UploadLocationService.class);
-                        intent.putExtra("id", id);
-                        startService(intent);
+//                        Intent intent = new Intent(context, UploadLocationService.class);
+//                        intent.putExtra("id", id);
+//                        startService(intent);
 
                         BNRoutePlanNode sNode = new BNRoutePlanNode.Builder()
                                 .latitude(mCurrentLat)
@@ -386,8 +393,8 @@ public class OrderDetailsActivity extends BaseActivity {
 //                }
                 break;
             case R.id.btn_start:
-//                stopService(new Intent(this, UploadLocationService.class));
                 if(radio.equals("0")){
+//                    stopService(new Intent(this, UploadLocationService.class));
                     ViseHttp.POST(NetUrl.service_startUrl)
                             .addParam("app_key", TokenUtils.getToken(NetUrl.BASE_URL+NetUrl.service_startUrl))
                             .addParam("oid", id)
@@ -556,7 +563,7 @@ public class OrderDetailsActivity extends BaseActivity {
                         } else {
                             result = "key校验失败, " + msg;
                         }
-                        Toast.makeText(OrderDetailsActivity.this, result, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(OrderDetailsActivity.this, result, Toast.LENGTH_LONG).show();
                     }
 
                     @Override

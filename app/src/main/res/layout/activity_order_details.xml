@@ -72,7 +72,6 @@
                 android:id="@+id/tv_service_type"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="上门洗车"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -96,7 +95,6 @@
                 android:id="@+id/tv_order_id"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="27381362619"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -120,7 +118,6 @@
                 android:id="@+id/tv_time"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="2019-05-15 09:30:00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -145,7 +142,6 @@
                 android:id="@+id/tv_address"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="北京市海淀区信息路18号"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -177,7 +173,6 @@
                 android:id="@+id/tv_remarks"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
-                android:text="上门洗车"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

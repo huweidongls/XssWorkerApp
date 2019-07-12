@@ -81,7 +81,7 @@ public class MyWalletActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_tixian, R.id.rl_bank_card})
+    @OnClick({R.id.rl_back, R.id.rl_tixian, R.id.rl_bank_card, R.id.rl_payment_details})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -96,6 +96,10 @@ public class MyWalletActivity extends BaseActivity {
             case R.id.rl_bank_card:
                 intent.setClass(context, BankCardActivity.class);
                 intent.putExtra("type", "0");
+                startActivity(intent);
+                break;
+            case R.id.rl_payment_details:
+                intent.setClass(context, PaymentDetailsActivity.class);
                 startActivity(intent);
                 break;
         }

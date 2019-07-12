@@ -73,6 +73,7 @@ public class RegisterActivity extends BaseActivity {
                     ViseHttp.POST(NetUrl.codeSendUrl)
                             .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.codeSendUrl))
                             .addParam("tel", phone)
+                            .addParam("type", "1")
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {
@@ -89,6 +90,8 @@ public class RegisterActivity extends BaseActivity {
                                             intent.putExtra("tel", phone);
                                             startActivity(intent);
                                             finish();
+                                        }else {
+                                            ToastUtil.showShort(context, jsonObject.optString("message"));
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();

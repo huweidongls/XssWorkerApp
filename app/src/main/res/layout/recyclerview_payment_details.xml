@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:background="@color/white_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="69dp">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/shouru"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="55dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:textColor="#191F25"
+                android:textSize="17sp"
+                android:text="室内卫生"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_marginTop="1dp"
+                android:textColor="#929597"
+                android:textSize="14sp"
+                android:text="05-26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:textColor="#5E6266"
+            android:textSize="20sp"
+            android:text="+ 600.00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

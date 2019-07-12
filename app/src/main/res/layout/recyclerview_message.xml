@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:id="@+id/rl"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
@@ -17,6 +18,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="12dp"
                 android:textSize="17sp"
@@ -26,6 +28,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_time"
                 android:layout_marginTop="6dp"
                 android:layout_marginLeft="12dp"
                 android:textColor="#5E6266"
@@ -35,6 +38,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_text"
                 android:layout_marginRight="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="6dp"

@@ -133,7 +133,7 @@ public class PersonInformationActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.ll_real_name, R.id.ll_work_experience, R.id.ll_pic, R.id.ll_replace_phone_num, R.id.ll_city})
+    @OnClick({R.id.rl_back, R.id.ll_real_name, R.id.ll_work_experience, R.id.rl_peixun_experience, R.id.ll_pic, R.id.ll_replace_phone_num, R.id.ll_city})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -153,6 +153,9 @@ public class PersonInformationActivity extends BaseActivity {
             case R.id.ll_work_experience:
                 intent.setClass(context, WorkExperienceActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.rl_peixun_experience:
+
                 break;
             case R.id.ll_pic:
                 //限数量的多选(比喻最多9张)

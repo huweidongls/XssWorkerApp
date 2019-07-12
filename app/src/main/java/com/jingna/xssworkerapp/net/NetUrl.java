@@ -72,4 +72,8 @@ public class NetUrl {
     public static String myWalletUrl = "index.php/WorkApi/User/MyWallet";
     //工人提现
     public static String cash_WokerUrl = "index.php/WorkApi/User/Cash_Woker";
+    //收支明细
+    public static String budgetListUrl = "index.php/WorkApi/User/BudgetList";
+    //工人消息列表
+    public static String worker_message_listUrl = "index.php/WorkApi/User/worker_message_list";
 }

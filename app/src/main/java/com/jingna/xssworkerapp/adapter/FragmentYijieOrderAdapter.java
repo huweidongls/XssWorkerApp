@@ -45,7 +45,7 @@ public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYiji
         holder.tvTime.setText(data.get(position).getPretime());
         holder.tvAddress.setText(data.get(position).getAddress());
         holder.tvCoupons.setText(data.get(position).getCoupon());
-        String radio = data.get(position).getRadio();
+        final String radio = data.get(position).getRadio();
         if(radio.equals("0")){
             Glide.with(context).load(R.mipmap.weikaishi).into(holder.ivType);
         }else if(radio.equals("1")){
@@ -63,10 +63,12 @@ public class FragmentYijieOrderAdapter extends RecyclerView.Adapter<FragmentYiji
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(context, OrderDetailsActivity.class);
-                intent.putExtra("id", data.get(position).getId());
-                context.startActivity(intent);
+//                if(radio.equals("0")||radio.equals("1")||radio.equals("2")||radio.equals("3")){
+                    Intent intent = new Intent();
+                    intent.setClass(context, OrderDetailsActivity.class);
+                    intent.putExtra("id", data.get(position).getId());
+                    context.startActivity(intent);
+//                }
             }
         });
 

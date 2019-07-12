@@ -8,9 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.adapter.MessageAdapter;
 import com.jingna.xssworkerapp.base.BaseFragment;
+import com.jingna.xssworkerapp.bean.WorkerMessageListBean;
+import com.jingna.xssworkerapp.net.NetUrl;
+import com.jingna.xssworkerapp.util.SpUtils;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +37,7 @@ public class FragmentMessage extends BaseFragment {
     RecyclerView recyclerView;
 
     private MessageAdapter adapter;
-    private List<String> mList;
+    private List<WorkerMessageListBean.ObjBean> mList;
 
     @Nullable
     @Override
@@ -43,14 +52,33 @@ public class FragmentMessage extends BaseFragment {
 
     private void initData() {
 
-        mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        adapter = new MessageAdapter(mList);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+        ViseHttp.POST(NetUrl.worker_message_listUrl)
+                .addParam("uid", SpUtils.getUid(getContext()))
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optInt("code") == 200){
+                                Gson gson = new Gson();
+                                WorkerMessageListBean bean = gson.fromJson(data, WorkerMessageListBean.class);
+                                mList = bean.getObj();
+                                adapter = new MessageAdapter(mList);
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(manager);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
 
     }
 

@@ -87,7 +87,9 @@ public class RemoveBankCardActivity extends BaseActivity {
                 }else {
                     MyApplication.removeBankCardTimeCount.start();
                     ViseHttp.POST(NetUrl.codeSendUrl)
+                            .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.codeSendUrl))
                             .addParam("tel", phone)
+                            .addParam("type", "2")
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {

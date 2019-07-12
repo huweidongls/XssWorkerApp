@@ -36,25 +36,25 @@ public class ForegroundService extends Service {
             createNotificationChannel("my_service", "My Background Service");
         }
 
-        Notification notification = new Notification();
-        try {
-            NotificationCompat.Builder builder =
-                    new NotificationCompat.Builder(this, channelId);
-//            Intent intent = new Intent(this, LiteActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-//                    | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-//            PendingIntent pendingIntent =
-//                    PendingIntent.getActivity(this, 0, intent, 0);
-            notification = builder.setSmallIcon(R.mipmap.ic_launcher).setTicker("正在导航")
-                    .setWhen(System.currentTimeMillis())
-                    .setContentTitle("正在导航")
-                    .setContentText("百度地图")
-                    .build();
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-
-        startForeground(RES_ID, notification);
+//        Notification notification = new Notification();
+//        try {
+//            NotificationCompat.Builder builder =
+//                    new NotificationCompat.Builder(this, channelId);
+////            Intent intent = new Intent(this, LiteActivity.class);
+////            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+////                    | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+////            PendingIntent pendingIntent =
+////                    PendingIntent.getActivity(this, 0, intent, 0);
+//            notification = builder.setSmallIcon(R.mipmap.ic_launcher).setTicker("正在导航")
+//                    .setWhen(System.currentTimeMillis())
+//                    .setContentTitle("正在导航")
+//                    .setContentText("百度地图")
+//                    .build();
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
+//
+//        startForeground(RES_ID, notification);
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

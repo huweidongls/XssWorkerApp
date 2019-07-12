@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -75,8 +74,8 @@ public class DemoGuideActivity extends Activity {
 
     // 导航过程事件监听
     private void routeGuideEvent() {
-        EventHandler.getInstance().getDialog(this);
-        EventHandler.getInstance().showDialog();
+//        EventHandler.getInstance().getDialog(this);
+//        EventHandler.getInstance().showDialog();
 
         BaiduNaviManagerFactory.getRouteGuideManager().setRouteGuideEventListener(
                 new IBNRouteGuideManager.IRouteGuideEventListener() {

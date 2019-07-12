@@ -323,6 +323,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_peixun_experience"
         android:background="@color/white_ffffff"
         android:layout_marginTop="1dp"

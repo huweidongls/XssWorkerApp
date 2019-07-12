@@ -57,6 +57,15 @@ public class UserInfoBean {
         private String headimg;
         private String real;
         private String name;
+        private String tel;
+
+        public String getTel() {
+            return tel;
+        }
+
+        public void setTel(String tel) {
+            this.tel = tel;
+        }
 
         public String getName() {
             return name;

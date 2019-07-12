@@ -76,7 +76,9 @@ public class InsertBankCardActivity extends BaseActivity {
                 }else {
                     MyApplication.bankCardTimeCount.start();
                     ViseHttp.POST(NetUrl.codeSendUrl)
+                            .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.codeSendUrl))
                             .addParam("tel", phone)
+                            .addParam("type", "2")
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {
