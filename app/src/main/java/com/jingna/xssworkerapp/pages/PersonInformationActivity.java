@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.jingna.xssworkerapp.util.GetJsonDataUtil;
 import com.jingna.xssworkerapp.util.Logger;
 import com.jingna.xssworkerapp.util.SpUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
+import com.jingna.xssworkerapp.util.WeiboDialogUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -37,6 +39,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class PersonInformationActivity extends BaseActivity {
 
@@ -227,31 +232,54 @@ public class PersonInformationActivity extends BaseActivity {
             final ArrayList<String> images = data.getStringArrayListExtra(
                     ImageSelectorUtils.SELECT_RESULT);
             if(images.size()>0){
-                File file = new File(images.get(0));
-                ViseHttp.UPLOAD(NetUrl.uploadTheImgUrl)
-                        .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.uploadTheImgUrl))
-                        .addParam("uid", SpUtils.getUid(context))
-                        .addFile("headimg", file)
-                        .request(new ACallback<String>() {
+                Luban.with(context)
+                        .load(images)
+                        .ignoreBy(100)
+                        .filter(new CompressionPredicate() {
                             @Override
-                            public void onSuccess(String data) {
-                                try {
-                                    Logger.e("123123", data);
-                                    JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.optInt("code") == 200){
-                                        ToastUtil.showShort(context, jsonObject.optString("message"));
-                                        Glide.with(context).load(images.get(0)).into(ivAvatar);
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                            public boolean apply(String path) {
+                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                            }
+                        })
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+
                             }
 
                             @Override
-                            public void onFail(int errCode, String errMsg) {
+                            public void onSuccess(File file) {
+                                ViseHttp.UPLOAD(NetUrl.uploadTheImgUrl)
+                                        .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.uploadTheImgUrl))
+                                        .addParam("uid", SpUtils.getUid(context))
+                                        .addFile("headimg", file)
+                                        .request(new ACallback<String>() {
+                                            @Override
+                                            public void onSuccess(String data) {
+                                                try {
+                                                    Logger.e("123123", data);
+                                                    JSONObject jsonObject = new JSONObject(data);
+                                                    if(jsonObject.optInt("code") == 200){
+                                                        ToastUtil.showShort(context, jsonObject.optString("message"));
+                                                        Glide.with(context).load(images.get(0)).into(ivAvatar);
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFail(int errCode, String errMsg) {
+
+                                            }
+                                        });
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
 
                             }
-                        });
+                        }).launch();
             }
         }
     }

@@ -235,6 +235,7 @@
             android:layout_height="1dp"/>
 
         <LinearLayout
+            android:id="@+id/ll_youxiao"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="horizontal"
@@ -250,8 +251,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/et_youxiao"
+            <TextView
+                android:id="@+id/tv_youxiao"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"

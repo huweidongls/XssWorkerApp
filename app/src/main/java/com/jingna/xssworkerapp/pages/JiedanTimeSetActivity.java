@@ -126,9 +126,11 @@ public class JiedanTimeSetActivity extends BaseActivity {
                 isZao = false;
                 break;
             case R.id.rl_save:
+                String start = tvStartTime.getText().toString();
+                String end = tvEndTime.getText().toString();
                 Intent intent = new Intent();
-                intent.putExtra("zao", tvStartTime.getText().toString());
-                intent.putExtra("wan", tvEndTime.getText().toString());
+                intent.putExtra("zao", start);
+                intent.putExtra("wan", end);
                 setResult(100, intent);
                 finish();
                 break;

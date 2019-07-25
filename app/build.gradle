@@ -88,4 +88,5 @@ dependencies {
     implementation files('libs/galaxy_lite.jar')
     implementation(name: 'onsdk_all', ext: 'aar')
     implementation(name: 'NaviTts', ext: 'aar')
+    implementation 'top.zibin:Luban:1.1.8'
 }

@@ -83,6 +83,7 @@ public class FragmentNewOrder extends BaseFragment {
                         .addParam("app_key", getToken(NetUrl.BASE_URL + NetUrl.indexOrderUrl))
                         .addParam("uid", SpUtils.getUid(getContext()))
                         .addParam("type", "0")
+                        .addParam("city_id", SpUtils.getCityId(getContext()))
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
@@ -120,10 +121,7 @@ public class FragmentNewOrder extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(MyApplication.isNew){
-            initData();
-            MyApplication.isNew = false;
-        }
+        initData();
     }
 
     private void initData() {
@@ -135,6 +133,7 @@ public class FragmentNewOrder extends BaseFragment {
                 .addParam("app_key", getToken(NetUrl.BASE_URL + NetUrl.indexOrderUrl))
                 .addParam("uid", SpUtils.getUid(getContext()))
                 .addParam("type", "0")
+                .addParam("city_id", SpUtils.getCityId(getContext()))
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

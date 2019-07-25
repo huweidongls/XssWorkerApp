@@ -1,6 +1,7 @@
 package com.jingna.xssworkerapp.pages;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -120,6 +121,8 @@ public class GoodServiceActivity extends BaseActivity {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if(jsonObject.optInt("code") == 200){
                                         ToastUtil.showShort(context, jsonObject.optString("message"));
+                                        Intent intent = new Intent();
+                                        setResult(101, intent);
                                         finish();
                                     }else {
                                         ToastUtil.showShort(context, jsonObject.optString("message"));

@@ -80,6 +80,7 @@ public class FragmentYijieOrder extends OrderBaseFragment {
                         .addParam("app_key", getToken(NetUrl.BASE_URL + NetUrl.indexOrderUrl))
                         .addParam("uid", SpUtils.getUid(getContext()))
                         .addParam("type", "1")
+                        .addParam("city_id", SpUtils.getCityId(getContext()))
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
@@ -127,6 +128,7 @@ public class FragmentYijieOrder extends OrderBaseFragment {
                 .addParam("app_key", getToken(NetUrl.BASE_URL + NetUrl.indexOrderUrl))
                 .addParam("uid", SpUtils.getUid(getContext()))
                 .addParam("type", "1")
+                .addParam("city_id", SpUtils.getCityId(getContext()))
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

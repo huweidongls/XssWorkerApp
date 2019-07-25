@@ -58,13 +58,13 @@ public class JiedanSetActivity extends BaseActivity {
         setContentView(R.layout.activity_jiedan_set);
 
         ButterKnife.bind(JiedanSetActivity.this);
+        initData();
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        initData();
     }
 
     private void initData() {
@@ -108,7 +108,7 @@ public class JiedanSetActivity extends BaseActivity {
                                     public void onInsert() {
                                         Intent intent = new Intent();
                                         intent.setClass(context, GoodServiceActivity.class);
-                                        startActivity(intent);
+                                        startActivityForResult(intent, 1002);
                                     }
                                 });
                                 GridLayoutManager manager = new GridLayoutManager(context, 3);
@@ -193,11 +193,13 @@ public class JiedanSetActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1001&&resultCode == 100){
+        if(requestCode == 1001){
             if(data != null){
                 tvZao.setText(data.getStringExtra("zao"));
                 tvWan.setText(data.getStringExtra("wan"));
             }
+        }else if(requestCode == 1002){
+            initData();
         }
     }
 
