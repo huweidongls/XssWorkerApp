@@ -163,7 +163,7 @@ public class FragmentMy extends BaseFragment {
                     @Override
                     public void onSure() {
                         SpUtils.clear(getContext());
-                        MyApplication.getInstance().exit();
+                        getActivity().finish();
                     }
 
                     @Override
