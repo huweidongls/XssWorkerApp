@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.base.BaseActivity;
@@ -21,6 +22,8 @@ public class CodeActivity extends BaseActivity {
 
     @BindView(R.id.et_code)
     EditText etCode;
+    @BindView(R.id.tv_tel)
+    TextView tvTel;
 
     private String type = "";
     private String code = "";
@@ -35,6 +38,14 @@ public class CodeActivity extends BaseActivity {
         code = getIntent().getStringExtra("code");
         tel = getIntent().getStringExtra("tel");
         ButterKnife.bind(CodeActivity.this);
+
+        initData();
+
+    }
+
+    private void initData() {
+
+        tvTel.setText(tel);
 
     }
 
