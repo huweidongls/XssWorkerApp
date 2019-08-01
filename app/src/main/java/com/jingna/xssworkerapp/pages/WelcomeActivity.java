@@ -20,6 +20,7 @@ import com.jingna.xssworkerapp.bean.BaiduCityBean;
 import com.jingna.xssworkerapp.bean.LocationBean;
 import com.jingna.xssworkerapp.net.NetUrl;
 import com.jingna.xssworkerapp.util.Gps;
+import com.jingna.xssworkerapp.util.GpsUtil;
 import com.jingna.xssworkerapp.util.Logger;
 import com.jingna.xssworkerapp.util.PositionUtil;
 import com.jingna.xssworkerapp.util.SpUtils;
@@ -84,7 +85,8 @@ public class WelcomeActivity extends BaseActivity {
 
     private void initData() {
 
-        if (locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null || locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
+//        if (locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null || locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
+        if (GpsUtil.isLocServiceEnable(context)) {
             /*
              * 进行定位
              * provider:用于定位的locationProvider字符串:LocationManager.NETWORK_PROVIDER/LocationManager.GPS_PROVIDER
@@ -99,6 +101,7 @@ public class WelcomeActivity extends BaseActivity {
             Intent i = new Intent();
             i.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(i);
+            finish();
         }
 
     }
@@ -111,7 +114,6 @@ public class WelcomeActivity extends BaseActivity {
                     ToastUtil.showShort(context, "请开启定位权限");
                     return;
                 }
-                Logger.i("123123", "有权限");
                 Location location = locationManager
                         .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 if (location != null) {
