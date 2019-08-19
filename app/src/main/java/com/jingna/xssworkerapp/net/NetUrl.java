@@ -76,4 +76,6 @@ public class NetUrl {
     public static String budgetListUrl = "index.php/WorkApi/User/BudgetList";
     //工人消息列表
     public static String worker_message_listUrl = "index.php/WorkApi/User/worker_message_list";
+    //隐私政策与用户协议
+    public static String user_ProtocolUrl = "index.php/api/Login/Logins/User_Protocol";
 }

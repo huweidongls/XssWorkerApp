@@ -57,8 +57,9 @@ public class RegisterActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back, R.id.btn_next})
+    @OnClick({R.id.rl_back, R.id.btn_next, R.id.tv_user_agreement, R.id.tv_privacy})
     public void onClick(View view){
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_back:
                 finish();
@@ -104,6 +105,14 @@ public class RegisterActivity extends BaseActivity {
                                 }
                             });
                 }
+                break;
+            case R.id.tv_user_agreement:
+                intent.setClass(context, UserAgreementActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_privacy:
+                intent.setClass(context, PrivacyPolicyActivity.class);
+                startActivity(intent);
                 break;
         }
     }

@@ -98,4 +98,43 @@
         android:layout_width="match_parent"
         android:layout_height="44dp" />
 
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="19dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="10sp"
+            android:textColor="@color/black_333333"
+            android:text="注册即代表您阅读并同意"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_user_agreement"
+            android:textSize="10sp"
+            android:textColor="#3296fa"
+            android:text="《用户服务协议》"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="10sp"
+            android:textColor="@color/black_333333"
+            android:text="和"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_privacy"
+            android:textSize="10sp"
+            android:textColor="#3296fa"
+            android:text="《隐私政策》"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 </LinearLayout>
