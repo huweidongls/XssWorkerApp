@@ -64,7 +64,7 @@
             android:layout_marginTop="14dp"
             android:textColor="#5E6266"
             android:textSize="17sp"
-            android:text="洗刷刷服务端app V1.0"
+            android:text="易洁工人端 V1.0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
