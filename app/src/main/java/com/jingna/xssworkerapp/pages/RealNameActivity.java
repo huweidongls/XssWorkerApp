@@ -15,8 +15,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.gson.Gson;
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.base.BaseActivity;
+import com.jingna.xssworkerapp.bean.RealNameHuiXianBean;
+import com.jingna.xssworkerapp.bean.WorkerBankListBean;
 import com.jingna.xssworkerapp.net.NetUrl;
 import com.jingna.xssworkerapp.util.Logger;
 import com.jingna.xssworkerapp.util.SpUtils;
@@ -109,86 +112,124 @@ public class RealNameActivity extends BaseActivity {
                         .start(RealNameActivity.this, REQUEST_CODE1); // 打开相册
                 break;
             case R.id.rl_save:
-                dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
-                final String name = etName.getText().toString();
-                final String idCard = etIdCard.getText().toString();
-                final String issuingAuthority = etIssuingAuthority.getText().toString();
-                final String youxiao = tvYouxiao.getText().toString();
-                if(StringUtils.isEmpty(pic1)||StringUtils.isEmpty(pic2)||StringUtils.isEmpty(name)
-                        ||StringUtils.isEmpty(idCard)||StringUtils.isEmpty(issuingAuthority)||StringUtils.isEmpty(youxiao)){
-                    ToastUtil.showShort(context, "请完善信息之后提交");
-                }else {
-                    List<String> list = new ArrayList<>();
-                    list.add(pic1);
-                    list.add(pic2);
-                    final List<File> fileList = new ArrayList<>();
-                    Luban.with(context)
-                            .load(list)
-                            .ignoreBy(100)
-                            .filter(new CompressionPredicate() {
-                                @Override
-                                public boolean apply(String path) {
-                                    return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                                }
-                            })
-                            .setCompressListener(new OnCompressListener() {
-                                @Override
-                                public void onStart() {
-
-                                }
-
-                                @Override
-                                public void onSuccess(File file) {
-                                    fileList.add(file);
-                                    if(fileList.size() == 2){
-                                        ViseHttp.UPLOAD(NetUrl.real_Name_AuthenticationUrl)
-                                                .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.real_Name_AuthenticationUrl))
-                                                .addParam("uid", SpUtils.getUid(context))
-                                                .addFile("imgz", fileList.get(0))
-                                                .addFile("imgf", fileList.get(1))
-                                                .addParam("real_name", name)
-                                                .addParam("card_code", idCard)
-                                                .addParam("issue", issuingAuthority)
-                                                .addParam("validity", youxiao)
-                                                .request(new ACallback<String>() {
-                                                    @Override
-                                                    public void onSuccess(String data) {
-                                                        try {
-                                                            Logger.e("123123", data);
-                                                            JSONObject jsonObject = new JSONObject(data);
-                                                            if(jsonObject.optInt("code") == 200){
-                                                                ToastUtil.showShort(context, jsonObject.optString("message"));
-                                                                finish();
-                                                            }else {
-                                                                ToastUtil.showShort(context, jsonObject.optString("message"));
-                                                            }
-                                                            WeiboDialogUtils.closeDialog(dialog);
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFail(int errCode, String errMsg) {
-                                                        WeiboDialogUtils.closeDialog(dialog);
-                                                    }
-                                                });
-                                    }
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    WeiboDialogUtils.closeDialog(dialog);
-                                }
-                            }).launch();
-                }
+                Save_Info();
                 break;
             case R.id.ll_youxiao:
-                new DatePickerDialog(context, onDateSetListener, mYear, mMonth, mDay).show();
+                //new DatePickerDialog(context, onDateSetListener, mYear, mMonth, mDay).show();
                 break;
         }
     }
+    private void Save_Info(){
+        dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+        final String name = etName.getText().toString();
+        final String idCard = etIdCard.getText().toString();
+        final String issuingAuthority = etIssuingAuthority.getText().toString();
+        final String youxiao = tvYouxiao.getText().toString();
+        ViseHttp.POST(NetUrl.real_Name_AuthenticationUrl)
+                .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.real_Name_AuthenticationUrl))
+                .addParam("uid", SpUtils.getUid(context))
+                .addParam("imgz",pic1)
+                .addParam("imgf",pic2)
+                .addParam("real_name", name)
+                .addParam("card_code", idCard)
+                .addParam("issue", issuingAuthority)
+                .addParam("validity", youxiao)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if(jsonObject.optInt("code") == 200){
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
+                                finish();
+                            }else {
+                                ToastUtil.showShort(context, jsonObject.optString("message"));
+                            }
+                            WeiboDialogUtils.closeDialog(dialog);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                        WeiboDialogUtils.closeDialog(dialog);
+                    }
+                });
+    }
+    private void RealnameauThenticationEcho(){
+        if (StringUtils.isEmpty(pic1)||StringUtils.isEmpty(pic2)){
+            ToastUtil.showShort(context, "请选择身份证照片!");
+        }else{
+            dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
+            List<String> list = new ArrayList<>();
+            list.add(pic1);
+            list.add(pic2);
+            final List<File> fileList = new ArrayList<>();
+            Luban.with(context)
+                    .load(list)
+                    .ignoreBy(100)
+                    .filter(new CompressionPredicate() {
+                        @Override
+                        public boolean apply(String path) {
+                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        }
+                    })
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                        }
+                        @Override
+                        public void onSuccess(File file) {
+                            fileList.add(file);
+                            if(fileList.size() == 2){
+                                ViseHttp.UPLOAD(NetUrl.RealHuiXianUrl)
+                                        .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.real_Name_AuthenticationUrl))
+                                        .addParam("uid", SpUtils.getUid(context))
+                                        .addFile("imgz", fileList.get(0))
+                                        .addFile("imgf", fileList.get(1))
+                                        .request(new ACallback<String>() {
+                                            @Override
+                                            public void onSuccess(String data) {
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(data);
+                                                if(jsonObject.optInt("code") == 200){
+                                                    Gson gson = new Gson();
+                                                    RealNameHuiXianBean bean = gson.fromJson(data, RealNameHuiXianBean.class);
+                                                    etName.setText(bean.getObj().getName());
+                                                    etIdCard.setText(bean.getObj().getIdcard());
+                                                    etIssuingAuthority.setText(bean.getObj().getDepartment());
+                                                    tvYouxiao.setText(bean.getObj().getEnd());
+                                                    Glide.with(context).load(NetUrl.BASE_URL+bean.getObj().getImgz()).into(iv1);
+                                                    Glide.with(context).load(NetUrl.BASE_URL+bean.getObj().getImgf()).into(iv2);
+                                                    pic1 = bean.getObj().getImgz();
+                                                    pic2 = bean.getObj().getImgf();
+                                                }else {
+                                                    ToastUtil.showShort(context, jsonObject.optString("message"));
+                                                }
+                                                    WeiboDialogUtils.closeDialog(dialog);
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFail(int errCode, String errMsg) {
+                                                WeiboDialogUtils.closeDialog(dialog);
+                                            }
+                                        });
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            WeiboDialogUtils.closeDialog(dialog);
+                        }
+                    }).launch();
+        }
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -208,6 +249,7 @@ public class RealNameActivity extends BaseActivity {
                 Glide.with(context).load(images.get(0)).into(iv2);
                 pic2 = images.get(0);
             }
+            RealnameauThenticationEcho();
         }
     }
 

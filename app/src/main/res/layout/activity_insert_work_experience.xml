@@ -291,30 +291,29 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="150dp">
 
-            <TextView
+           <!-- <TextView
                 android:layout_marginLeft="16dp"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
                 android:text="内容描述"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" />-->
 
             <EditText
                 android:id="@+id/et_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:background="@null"
-                android:hint="请填写"
+                android:hint="请填写想写内容..."
                 android:textColor="@color/black_333333"
                 android:textSize="17sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="150dp" />
         </LinearLayout>
-
     </LinearLayout>
 
     <TextView

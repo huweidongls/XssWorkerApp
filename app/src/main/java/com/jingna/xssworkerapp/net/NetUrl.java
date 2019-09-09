@@ -78,4 +78,6 @@ public class NetUrl {
     public static String worker_message_listUrl = "index.php/WorkApi/User/worker_message_list";
     //隐私政策与用户协议
     public static String user_ProtocolUrl = "index.php/api/Login/Logins/User_Protocol";
+    //实名认证回显
+    public static String RealHuiXianUrl = "index.php/WorkApi/User/Real_Hui_Xian";
 }
