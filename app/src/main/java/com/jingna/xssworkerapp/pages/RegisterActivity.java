@@ -62,6 +62,8 @@ public class RegisterActivity extends BaseActivity {
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.rl_back:
+                intent.setClass(context, LoginActivity.class);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.btn_next:
