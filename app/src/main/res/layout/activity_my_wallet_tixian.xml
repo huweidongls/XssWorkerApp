@@ -134,8 +134,8 @@
                 android:layout_height="48dp" />
 
             <EditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_money"
-                android:inputType="number"
                 android:textColor="@color/black_333333"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"

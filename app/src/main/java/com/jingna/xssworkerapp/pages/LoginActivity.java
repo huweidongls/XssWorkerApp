@@ -107,6 +107,8 @@ public class LoginActivity extends BaseActivity {
                                             intent1.setClass(context, MainActivity.class);
                                             startActivity(intent1);
                                             finish();
+                                        }else {
+                                            ToastUtil.showShort(context, jsonObject.optString("message"));
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();

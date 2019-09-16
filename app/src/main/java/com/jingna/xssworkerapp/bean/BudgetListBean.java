@@ -73,22 +73,22 @@ public class BudgetListBean {
              * z : 1750
              */
 
-            private int s;
-            private int z;
+            private double s;
+            private double z;
 
-            public int getS() {
+            public double getS() {
                 return s;
             }
 
-            public void setS(int s) {
+            public void setS(double s) {
                 this.s = s;
             }
 
-            public int getZ() {
+            public double getZ() {
                 return z;
             }
 
-            public void setZ(int z) {
+            public void setZ(double z) {
                 this.z = z;
             }
         }

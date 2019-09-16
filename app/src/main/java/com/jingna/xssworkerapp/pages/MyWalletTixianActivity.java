@@ -77,10 +77,16 @@ public class MyWalletTixianActivity extends BaseActivity {
                 break;
             case R.id.btn_tixian:
                 String money = etMoney.getText().toString();
+                double ke = Double.valueOf(keMoney);
+                double m = Double.valueOf(money);
                 if(StringUtils.isEmpty(id)){
                     ToastUtil.showShort(context, "请选择提现银行卡");
                 }else if(StringUtils.isEmpty(money)){
                     ToastUtil.showShort(context, "请输入提现金额");
+                }else if(ke == 0){
+                    ToastUtil.showShort(context, "可提现金额为0，不能提现");
+                }else if(m>ke){
+                    ToastUtil.showShort(context, "不能超过可提现金额");
                 }else {
                     ViseHttp.POST(NetUrl.cash_WokerUrl)
                             .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.cash_WokerUrl))
