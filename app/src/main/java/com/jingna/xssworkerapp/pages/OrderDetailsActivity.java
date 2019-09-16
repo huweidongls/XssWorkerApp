@@ -118,6 +118,12 @@ public class OrderDetailsActivity extends BaseActivity {
     Button btnStart;
     @BindView(R.id.btn_go)
     Button btnGo;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_price)
+    TextView tvPrice;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
 
     private String id = "";
     private double lat;
@@ -165,6 +171,9 @@ public class OrderDetailsActivity extends BaseActivity {
                                 } else {
                                     tvRemarks.setText(bean.getObj().getRemarks());
                                 }
+                                tvName.setText(bean.getObj().getLxr());
+                                tvPhone.setText(bean.getObj().getTel());
+                                tvPrice.setText(bean.getObj().getPrice()+"元");
                                 lat = Double.valueOf(bean.getObj().getLat());
                                 lng = Double.valueOf(bean.getObj().getLng());
                                 address = bean.getObj().getAddress();

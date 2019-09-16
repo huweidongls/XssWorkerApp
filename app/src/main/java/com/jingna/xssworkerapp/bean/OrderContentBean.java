@@ -64,6 +64,33 @@ public class OrderContentBean {
         private String address_id;
         private String lng;
         private String lat;
+        private String lxr;
+        private String tel;
+        private String price;
+
+        public String getLxr() {
+            return lxr;
+        }
+
+        public void setLxr(String lxr) {
+            this.lxr = lxr;
+        }
+
+        public String getTel() {
+            return tel;
+        }
+
+        public void setTel(String tel) {
+            this.tel = tel;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
 
         public String getId() {
             return id;
