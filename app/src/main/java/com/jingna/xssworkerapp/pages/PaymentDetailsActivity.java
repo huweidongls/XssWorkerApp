@@ -118,24 +118,25 @@ public class PaymentDetailsActivity extends BaseActivity {
 
     }
 
-    private void updata(String date){
+    private void updata(final String date){
         ViseHttp.POST(NetUrl.budgetListUrl)
                 .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.budgetListUrl))
                 .addParam("time", date)
                 .addParam("uid", SpUtils.getUid(context))
                 .request(new ACallback<String>() {
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(String d) {
                         try {
-                            JSONObject jsonObject = new JSONObject(data);
+                            JSONObject jsonObject = new JSONObject(d);
                             if(jsonObject.optInt("code") == 200){
                                 Gson gson = new Gson();
-                                BudgetListBean bean = gson.fromJson(data, BudgetListBean.class);
+                                BudgetListBean bean = gson.fromJson(d, BudgetListBean.class);
                                 mList.clear();
                                 mList.addAll(bean.getObj().getList());
                                 adapter.notifyDataSetChanged();
-                                tvZhichu.setText("支出 ￥"+bean.getObj().getCount_money().getZ());
-                                tvShouru.setText("收入 ￥"+bean.getObj().getCount_money().getS());
+                                tvZhichu.setText("支出 ￥"+String.format("%.2f", bean.getObj().getCount_money().getZ()));
+                                tvShouru.setText("收入 ￥"+String.format("%.2f", bean.getObj().getCount_money().getS()));
+                                tvTime.setText(date);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -152,7 +153,8 @@ public class PaymentDetailsActivity extends BaseActivity {
     private void initData() {
 
         tvTime.setText(mYear+"-"+formatTimeUnit(mMonth+1));
-
+        selectYear = mYear+"";
+        selectMonth = formatTimeUnit(mMonth+1);
         String time = mYear+"-"+formatTimeUnit(mMonth+1);
 
         ViseHttp.POST(NetUrl.budgetListUrl)
@@ -173,8 +175,8 @@ public class PaymentDetailsActivity extends BaseActivity {
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
                                 recyclerView.setAdapter(adapter);
-                                tvZhichu.setText("支出 ￥"+bean.getObj().getCount_money().getZ());
-                                tvShouru.setText("收入 ￥"+bean.getObj().getCount_money().getS());
+                                tvZhichu.setText("支出 ￥"+String.format("%.2f", bean.getObj().getCount_money().getZ()));
+                                tvShouru.setText("收入 ￥"+String.format("%.2f", bean.getObj().getCount_money().getS()));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

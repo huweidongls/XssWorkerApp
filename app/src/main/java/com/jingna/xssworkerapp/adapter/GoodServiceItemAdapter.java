@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jingna.xssworkerapp.R;
 import com.jingna.xssworkerapp.bean.WorkerTypeListBean;
+import com.jingna.xssworkerapp.util.Logger;
 
 import java.util.List;
 import java.util.Map;
@@ -39,19 +40,26 @@ public class GoodServiceItemAdapter extends RecyclerView.Adapter<GoodServiceItem
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        if(data.get(position).getType().equals("1")){
+            holder.tv.setBackgroundResource(R.drawable.bg_3296fa_5dp_bord);
+            holder.tv.setTextColor(Color.parseColor("#3296fa"));
+        }else if(data.get(position).getType().equals("0")){
+            holder.tv.setBackgroundResource(R.drawable.bg_929597_5dp_bord);
+            holder.tv.setTextColor(Color.parseColor("#929597"));
+        }
         holder.tv.setText(data.get(position).getTypename());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(data.get(position).getIsSelect() == 0){
+                if(data.get(position).getType().equals("0")){
                     holder.tv.setBackgroundResource(R.drawable.bg_3296fa_5dp_bord);
                     holder.tv.setTextColor(Color.parseColor("#3296fa"));
-                    data.get(position).setIsSelect(1);
+                    data.get(position).setType("1");
                     listener.onItemClick(data);
                 }else {
                     holder.tv.setBackgroundResource(R.drawable.bg_929597_5dp_bord);
                     holder.tv.setTextColor(Color.parseColor("#929597"));
-                    data.get(position).setIsSelect(0);
+                    data.get(position).setType("0");
                     listener.onItemClick(data);
                 }
             }

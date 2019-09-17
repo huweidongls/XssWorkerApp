@@ -78,7 +78,7 @@ public class InsertBankCardActivity extends BaseActivity {
                     ViseHttp.POST(NetUrl.codeSendUrl)
                             .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.codeSendUrl))
                             .addParam("tel", phone)
-                            .addParam("type", "2")
+                            .addParam("type", "3")
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {
@@ -89,6 +89,8 @@ public class InsertBankCardActivity extends BaseActivity {
                                             CodeSendBean bean = gson.fromJson(data, CodeSendBean.class);
                                             ToastUtil.showShort(context, "验证码发送成功");
                                             code = bean.getObj().getCode();
+                                        }else {
+                                            ToastUtil.showShort(context, jsonObject.optString("message"));
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();

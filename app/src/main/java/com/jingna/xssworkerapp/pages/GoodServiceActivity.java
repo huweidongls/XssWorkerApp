@@ -58,6 +58,7 @@ public class GoodServiceActivity extends BaseActivity {
         idMap = new LinkedHashMap<>();
         ViseHttp.POST(NetUrl.workerTypeListUrl)
                 .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.workerTypeListUrl))
+                .addParam("uid", SpUtils.getUid(context))
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -99,12 +100,17 @@ public class GoodServiceActivity extends BaseActivity {
                 break;
             case R.id.rl_save:
                 for (int i = 0; i<mList.size(); i++){
-                    if(idMap.get(i+"") != null){
-                        List<WorkerTypeListBean.ObjBean.TwoBean> list = idMap.get(i+"");
-                        for (int a = 0; a<list.size(); a++){
-                            if(list.get(a).getIsSelect() == 1){
-                                id = id + list.get(a).getId() + ",";
-                            }
+//                    if(idMap.get(i+"") != null){
+//                        List<WorkerTypeListBean.ObjBean.TwoBean> list = idMap.get(i+"");
+//                        for (int a = 0; a<list.size(); a++){
+//                            if(list.get(a).getType().equals("1")){
+//                                id = id + list.get(a).getId() + ",";
+//                            }
+//                        }
+//                    }
+                    for (int j = 0; j < mList.get(i).getTwo().size(); j++){
+                        if(mList.get(i).getTwo().get(j).getType().equals("1")){
+                            id = id + mList.get(i).getTwo().get(j).getId() + ",";
                         }
                     }
                 }

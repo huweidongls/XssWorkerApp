@@ -63,10 +63,10 @@ public class MyWalletActivity extends BaseActivity {
                             if(jsonObject.optInt("code") == 200){
                                 Gson gson = new Gson();
                                 MyWalletBean bean = gson.fromJson(data, MyWalletBean.class);
-                                tvAllMoney.setText(bean.getObj().getBalance());
+                                tvAllMoney.setText(String.format("%.2f", Double.valueOf(bean.getObj().getBalance())));
                                 keMoney = bean.getObj().getWithdrawable();
-                                tvKeMoney.setText("可提现金额："+bean.getObj().getWithdrawable()+"元");
-                                tvIngMoney.setText("结算中："+bean.getObj().getSettlement()+"元");
+                                tvKeMoney.setText("可提现金额："+String.format("%.2f", Double.valueOf(bean.getObj().getWithdrawable()))+"元");
+                                tvIngMoney.setText("结算中："+String.format("%.2f", Double.valueOf(bean.getObj().getSettlement()))+"元");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

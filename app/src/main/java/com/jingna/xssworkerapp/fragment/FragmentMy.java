@@ -108,7 +108,7 @@ public class FragmentMy extends BaseFragment {
                                 tvAllNum.setText(bean.getObj().getOrder_count()+"单");
                                 tvCompleteNum.setText(bean.getObj().getTheorder()+"单");
                                 tvNewNum.setText(bean.getObj().getOrder_task()+"单");
-                                tvPrice.setText(bean.getObj().getPrice()+"元");
+                                tvPrice.setText(String.format("%.2f", Double.valueOf(bean.getObj().getPrice()))+"元");
                                 tel = bean.getObj().getTel();
                             }
                         } catch (JSONException e) {

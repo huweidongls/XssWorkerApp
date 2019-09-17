@@ -40,10 +40,10 @@ public class PaymentDetailsAdapter extends RecyclerView.Adapter<PaymentDetailsAd
         String type = data.get(position).getType();
         if(type.equals("1")){
             Glide.with(context).load(R.mipmap.shouru).into(holder.iv);
-            holder.tvPrice.setText("+ "+data.get(position).getPrice());
+            holder.tvPrice.setText("+ "+String.format("%.2f", Double.valueOf(data.get(position).getPrice())));
         }else if(type.equals("2")){
             Glide.with(context).load(R.mipmap.zhichu).into(holder.iv);
-            holder.tvPrice.setText("- "+data.get(position).getPrice());
+            holder.tvPrice.setText("- "+String.format("%.2f", Double.valueOf(data.get(position).getPrice())));
         }
         holder.tvTitle.setText(data.get(position).getText());
         holder.tvTime.setText(data.get(position).getAddtime());

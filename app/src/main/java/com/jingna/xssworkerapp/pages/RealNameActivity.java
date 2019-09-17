@@ -160,7 +160,7 @@ public class RealNameActivity extends BaseActivity {
     }
     private void RealnameauThenticationEcho(){
         if (StringUtils.isEmpty(pic1)||StringUtils.isEmpty(pic2)){
-            ToastUtil.showShort(context, "请选择身份证照片!");
+//            ToastUtil.showShort(context, "请选择身份证照片!");
         }else{
             dialog = WeiboDialogUtils.createLoadingDialog(context, "请等待...");
             List<String> list = new ArrayList<>();
@@ -241,6 +241,7 @@ public class RealNameActivity extends BaseActivity {
                 Glide.with(context).load(images.get(0)).into(iv1);
                 pic1 = images.get(0);
             }
+            RealnameauThenticationEcho();
         }else if (requestCode == REQUEST_CODE1 && data != null) {
             //获取选择器返回的数据
             ArrayList<String> images = data.getStringArrayListExtra(
