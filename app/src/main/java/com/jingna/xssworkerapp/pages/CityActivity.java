@@ -48,6 +48,7 @@ public class CityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
 
+        SpUtils.setIsFirst(context, "1");
         type = getIntent().getIntExtra("type", 0);
         curCity = getIntent().getStringExtra("city");
         ButterKnife.bind(CityActivity.this);

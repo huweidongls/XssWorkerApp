@@ -16,6 +16,17 @@ public class SpUtils {
     public static String TOKEN = "token";
     public static String CITY_ID = "city_id";
     public static String CITY_NAME = "city_name";
+    public static String IS_FIRST = "is_first";
+
+    public static void setIsFirst(Context context, String isFirst){
+        spCache = new SpCache(context, "user_info");
+        spCache.put(IS_FIRST, isFirst);
+    }
+
+    public static String getIsFirst(Context context){
+        spCache = new SpCache(context, "user_info");
+        return spCache.get(IS_FIRST, "");
+    }
 
     public static void setCityName(Context context, String cityName){
         spCache = new SpCache(context, "user_info");

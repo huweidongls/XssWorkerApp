@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.jingna.xssworkerapp.MainActivity;
@@ -24,6 +26,7 @@ import com.jingna.xssworkerapp.util.GpsUtil;
 import com.jingna.xssworkerapp.util.Logger;
 import com.jingna.xssworkerapp.util.PositionUtil;
 import com.jingna.xssworkerapp.util.SpUtils;
+import com.jingna.xssworkerapp.util.StringUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
@@ -42,6 +45,8 @@ public class WelcomeActivity extends BaseActivity {
     private double longitude = 0.0;
     private String latLongString = "";
 
+    private ImageView ivStart;
+
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -58,6 +63,7 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        ivStart = findViewById(R.id.iv_start);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         PermissionManager.instance().request(this, new OnPermissionCallback() {
                     @Override
@@ -94,7 +100,16 @@ public class WelcomeActivity extends BaseActivity {
              * minDistance:位置刷新距离，单位：m
              * listener:用于定位更新的监听者locationListener
              */
-            getLocation();
+            if(StringUtils.isEmpty(SpUtils.getIsFirst(context))){
+                ivStart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getLocation();
+                    }
+                });
+            }else {
+                getLocation();
+            }
         } else {
             //无法定位：1、提示用户打开定位服务；2、跳转到设置界面
             ToastUtil.showShort(context, "无法定位，请打开定位服务");
