@@ -421,12 +421,12 @@
                         android:layout_height="14dp" />
 
                     <TextView
+                        android:id="@+id/tv_version"
                         android:layout_marginRight="32dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:textColor="#929597"
                         android:textSize="12sp"
-                        android:text="当前版本 V1.0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

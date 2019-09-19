@@ -27,6 +27,7 @@ import com.jingna.xssworkerapp.pages.PersonInformationActivity;
 import com.jingna.xssworkerapp.util.SpUtils;
 import com.jingna.xssworkerapp.util.StringUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
+import com.jingna.xssworkerapp.util.VersionUtils;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
@@ -57,9 +58,13 @@ public class FragmentMy extends BaseFragment {
     TextView tvNewNum;
     @BindView(R.id.tv_price)
     TextView tvPrice;
+    @BindView(R.id.tv_version)
+    TextView tvVersion;
 
     private String uid = "";
     private String tel = "";
+
+    private String versionCode = "";
 
     @Nullable
     @Override
@@ -110,6 +115,8 @@ public class FragmentMy extends BaseFragment {
                                 tvNewNum.setText(bean.getObj().getOrder_task()+"单");
                                 tvPrice.setText(String.format("%.2f", Double.valueOf(bean.getObj().getPrice()))+"元");
                                 tel = bean.getObj().getTel();
+                                tvVersion.setText("当前版本 V"+bean.getObj().getVersionName());
+                                versionCode = bean.getObj().getVersionCode();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -147,7 +154,13 @@ public class FragmentMy extends BaseFragment {
                 }
                 break;
             case R.id.rl_version:
-                ToastUtil.showShort(getContext(), "已是最新版本！");
+                int code = Integer.valueOf(versionCode);
+                int curCode = VersionUtils.packageCode(getContext());
+                if(curCode<code){
+                    ToastUtil.showShort(getContext(), "有新版本，请去应用商店下载！");
+                }else {
+                    ToastUtil.showShort(getContext(), "已是最新版本！");
+                }
                 break;
             case R.id.rl_about:
                 if(uid.equals("0")){

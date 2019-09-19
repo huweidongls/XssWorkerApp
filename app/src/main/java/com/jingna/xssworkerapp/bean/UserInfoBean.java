@@ -58,6 +58,24 @@ public class UserInfoBean {
         private String real;
         private String name;
         private String tel;
+        private String VersionName;
+        private String VersionCode;
+
+        public String getVersionCode() {
+            return VersionCode;
+        }
+
+        public void setVersionCode(String VersionCode) {
+            this.VersionCode = VersionCode;
+        }
+
+        public String getVersionName() {
+            return VersionName;
+        }
+
+        public void setVersionName(String VersionName) {
+            this.VersionName = VersionName;
+        }
 
         public String getTel() {
             return tel;
