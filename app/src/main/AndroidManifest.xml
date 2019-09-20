@@ -97,10 +97,10 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="5nRyBFW3zyya8gVbkUWtg7F6Oamna2aS" />
 
-        <!-- <service -->
-        <!-- android:name="com.baidu.location.f" -->
-        <!-- android:enabled="true" -->
-        <!-- android:process=":remote" /> -->
+         <!--<service-->
+         <!--android:name="com.baidu.location.f"-->
+         <!--android:enabled="true"-->
+         <!--android:process=":remote" />-->
 
         <activity
             android:name=".pages.OrderDetailsActivity"
@@ -280,7 +280,11 @@
         <activity android:name=".pages.RemoveBankCardActivity" />
         <activity android:name=".pages.PaymentDetailsActivity" />
         <activity android:name=".pages.UserAgreementActivity" />
-        <activity android:name=".pages.PrivacyPolicyActivity"></activity>
+        <activity android:name=".pages.PrivacyPolicyActivity"/>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
     </application>
 
 </manifest>

@@ -14,6 +14,9 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
 import com.google.gson.Gson;
 import com.jingna.xssworkerapp.MainActivity;
 import com.jingna.xssworkerapp.R;
@@ -57,6 +60,9 @@ public class WelcomeActivity extends BaseActivity {
         }
 
     };
+
+    public LocationClient mLocationClient = null;
+    public BDLocationListener myListener = new MyLocationListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,11 +110,13 @@ public class WelcomeActivity extends BaseActivity {
                 ivStart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getLocation();
+//                        getLocation();
+                        startLocate();
                     }
                 });
             }else {
-                getLocation();
+//                getLocation();
+                startLocate();
             }
         } else {
             //无法定位：1、提示用户打开定位服务；2、跳转到设置界面
@@ -144,7 +152,7 @@ public class WelcomeActivity extends BaseActivity {
 
     public void getCity() {
         try {
-            String url = "http://api.map.baidu.com/geocoder?output=json&location=" + latitude + "," + longitude + "&key=5nRyBFW3zyya8gVbkUWtg7F6Oamna2aS";
+            String url = "http://api.map.baidu.com/geocoder?output=json&location=" + latitude + "," + longitude + "&ak=5nRyBFW3zyya8gVbkUWtg7F6Oamna2aS";
             ViseHttp.GET(url)
                     .request(new ACallback<String>() {
                         @Override
@@ -210,6 +218,83 @@ public class WelcomeActivity extends BaseActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 定位
+     */
+    private void startLocate() {
+        mLocationClient = new com.baidu.location.LocationClient(context);     //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);    //注册监听函数
+        com.baidu.location.LocationClientOption option = new com.baidu.location.LocationClientOption();
+        option.setLocationMode(com.baidu.location.LocationClientOption.LocationMode.Battery_Saving
+        );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        option.setCoorType("gcj02");//可选，默认gcj02，设置返回的定位结果坐标系
+        int span = 2000;
+        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+        option.setOpenGps(true);//可选，默认false,设置是否使用gps
+        option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
+        mLocationClient.setLocOption(option);
+        //开启定位
+        mLocationClient.start();
+    }
+
+    private class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (GpsUtil.isLocServiceEnable(context)) {
+                latLongString = location.getProvince()+"-"+location.getCity();
+                Logger.e("123123", latLongString+location.getLatitude()+location.getLongitude());
+                ViseHttp.POST(NetUrl.locationUrl)
+                        .addParam("app_key", getToken(NetUrl.BASE_URL+NetUrl.locationUrl))
+                        .addParam("text", latLongString)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                try {
+                                    JSONObject jsonObject1 = new JSONObject(data);
+                                    if(jsonObject1.optInt("code") == 200){
+                                        Gson gson1 = new Gson();
+                                        LocationBean bean = gson1.fromJson(data, LocationBean.class);
+                                        Logger.e("2222", bean.getObj().getId());
+                                        Intent intent = new Intent();
+                                        if(SpUtils.getUid(context).equals("0")){
+                                            intent.setClass(context, LoginActivity.class);
+                                        }else {
+                                            intent.setClass(context, MainActivity.class);
+                                        }
+                                        SpUtils.setCityId(context, bean.getObj().getId());
+                                        SpUtils.setCityName(context, bean.getObj().getCity_area());
+                                        startActivity(intent);
+                                        finish();
+                                    }else {
+                                        ToastUtil.showShort(context, "当前城市未开通");
+                                        String[] s = latLongString.split("-");
+                                        Intent intent = new Intent();
+                                        intent.setClass(context, CityActivity.class);
+                                        intent.putExtra("city", s[1]);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+            }
         }
     }
 
