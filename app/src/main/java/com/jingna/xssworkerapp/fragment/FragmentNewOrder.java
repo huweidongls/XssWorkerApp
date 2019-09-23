@@ -20,6 +20,7 @@ import com.jingna.xssworkerapp.base.BaseFragment;
 import com.jingna.xssworkerapp.bean.IndexOrderBean;
 import com.jingna.xssworkerapp.net.NetUrl;
 import com.jingna.xssworkerapp.pages.CityActivity;
+import com.jingna.xssworkerapp.util.Logger;
 import com.jingna.xssworkerapp.util.SpUtils;
 import com.jingna.xssworkerapp.util.ToastUtil;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -88,6 +89,7 @@ public class FragmentNewOrder extends BaseFragment {
                             @Override
                             public void onSuccess(String data) {
                                 try {
+                                    Logger.e("123123", data);
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.optInt("code") == 200) {
                                         Gson gson = new Gson();
