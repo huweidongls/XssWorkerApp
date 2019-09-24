@@ -73,6 +73,7 @@ public class FragmentPaiqianOrder extends OrderBaseFragment {
 
         smartRefreshLayout.setRefreshHeader(new MaterialHeader(getContext()));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
+        smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
@@ -104,12 +105,6 @@ public class FragmentPaiqianOrder extends OrderBaseFragment {
                                 refreshLayout.finishRefresh(1000);
                             }
                         });
-            }
-        });
-        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                refreshLayout.finishLoadMore(1000);
             }
         });
 
