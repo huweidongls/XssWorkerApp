@@ -59,6 +59,8 @@ public class PersonInformationActivity extends BaseActivity {
     TextView tvWorkExperience;
     @BindView(R.id.tv_city)
     TextView tvCity;
+    @BindView(R.id.tv_peixun_experience)
+    TextView tvPeixunExperience;
 
     private int REQUEST_CODE = 101;
 
@@ -123,6 +125,11 @@ public class PersonInformationActivity extends BaseActivity {
                                 }else if(bean.getObj().getWorkexperience().equals("1")) {
                                     tvWorkExperience.setText("已填写");
                                 }
+                                if(bean.getObj().getWorkertrain().equals("0")){
+                                    tvPeixunExperience.setText("未培训");
+                                }else if(bean.getObj().getWorkertrain().equals("1")) {
+                                    tvPeixunExperience.setText("已培训");
+                                }
                                 tvCity.setText(bean.getObj().getHabitualresidence());
                             }
                         } catch (JSONException e) {
@@ -160,7 +167,8 @@ public class PersonInformationActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.rl_peixun_experience:
-
+                intent.setClass(context, PeixunActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_pic:
                 //限数量的多选(比喻最多9张)

@@ -80,4 +80,6 @@ public class NetUrl {
     public static String user_ProtocolUrl = "index.php/api/Login/Logins/User_Protocol";
     //实名认证回显
     public static String RealHuiXianUrl = "index.php/WorkApi/User/Real_Hui_Xian";
+    //工人培训列表
+    public static String PeixunUrl = "/index.php/WorkApi/User/workertrainList";
 }
