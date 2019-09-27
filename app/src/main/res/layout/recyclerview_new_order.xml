@@ -72,39 +72,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <ImageView
-                android:visibility="gone"
-                android:layout_marginLeft="48dp"
-                android:src="@mipmap/rv_new2"
-                android:layout_width="28dp"
-                android:layout_height="28dp" />
-
-            <TextView
-                android:visibility="gone"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="9dp"
-                android:textSize="16sp"
-                android:textColor="#191F25"
-                android:text="10.50km"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="28dp">
+            android:layout_height="wrap_content">
 
             <ImageView
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/rv_new3"
                 android:layout_width="28dp"
                 android:layout_height="28dp" />
 
             <TextView
-                android:ellipsize="end"
-                android:lines="1"
                 android:layout_marginRight="9dp"
                 android:id="@+id/tv_address"
                 android:layout_gravity="center_vertical"

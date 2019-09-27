@@ -99,17 +99,16 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="28dp">
+                android:layout_height="wrap_content">
 
                 <ImageView
+                    android:layout_gravity="center_vertical"
                     android:src="@mipmap/rv_new3"
                     android:layout_width="28dp"
                     android:layout_height="28dp" />
 
                 <TextView
                     android:id="@+id/tv_address"
-                    android:ellipsize="end"
-                    android:lines="1"
                     android:layout_marginRight="9dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="9dp"
